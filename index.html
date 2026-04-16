@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-color="orange">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Abdul Aziz</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ── THEME VARS ───────────────────────────────────────────────── */
+[data-theme="light"]{
+  --desktop:#F97316;
+  --mb-bg:#E5D4C5;
+  --mb-text:#3D1C08;
+  --mb-hover:rgba(0,0,0,0.07);
+  --drop-bg:#F5EEE6;
+  --drop-text:#3D1C08;
+  --drop-dim:#8A6040;
+  --drop-border:#D8CCBC;
+  --drop-hover:rgba(139,58,10,0.07);
+  --win-bg:#F5EEE6;
+  --win-tb:#EDE4D8;
+  --win-border:#D4C8B8;
+  --text:#3D1C08;
+  --text-dim:#8A6040;
+  --text-bright:#1A0A04;
+  --sep:#DDD4C4;
+  --input-bg:#EDE4D8;
+  --input-border:#C8B8A8;
+  --scroll:#C8B8A8;
+  --dock-bg:rgba(245,238,230,0.88);
+  --dock-border:rgba(255,255,255,0.9);
+  --dock-btn:#5C2A0A;
+}
+[data-theme="dark"]{
+  --desktop:#170c07;
+  --mb-bg:#130a05;
+  --mb-text:#e0ccb0;
+  --mb-hover:rgba(200,120,64,0.15);
+  --drop-bg:#1c1008;
+  --drop-text:#e0ccb0;
+  --drop-dim:#8a6040;
+  --drop-border:#3a1e0c;
+  --drop-hover:rgba(200,120,60,0.1);
+  --win-bg:#1c1008;
+  --win-tb:#110805;
+  --win-border:#3a1e0c;
+  --text:#e0ccb0;
+  --text-dim:#8a6040;
+  --text-bright:#f0e0cc;
+  --sep:#251408;
+  --input-bg:#110805;
+  --input-border:#3a1e0c;
+  --scroll:#3a1e0c;
+  --dock-bg:rgba(25,12,5,0.88);
+  --dock-border:#4a2810;
+  --dock-btn:#8B4A18;
+}
+[data-theme="light"][data-color="orange"]{--accent:#8B3A0A;--desktop:#F97316;}
+[data-theme="light"][data-color="green"] {--accent:#1E6820;--desktop:#16A34A;}
+[data-theme="light"][data-color="blue"]  {--accent:#1A3D7A;--desktop:#2563EB;}
+[data-theme="light"][data-color="purple"]{--accent:#4A1A7A;--desktop:#7C3AED;}
+[data-theme="dark"][data-color="orange"] {--accent:#c87840;--desktop:#170c07;}
+[data-theme="dark"][data-color="green"]  {--accent:#40c860;--desktop:#071708;}
+[data-theme="dark"][data-color="blue"]   {--accent:#4080c8;--desktop:#070d17;}
+[data-theme="dark"][data-color="purple"] {--accent:#8840c8;--desktop:#0e0717;}
+
+html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:14px}
+
+/* ── MENU BAR ─────────────────────────────────────────────────── */
+#mb{position:fixed;top:0;left:0;right:0;height:26px;background:var(--mb-bg);display:flex;align-items:center;justify-content:space-between;padding:0 10px;z-index:9999;user-select:none;font-size:13px;border-bottom:1px solid rgba(0,0,0,0.08)}
+[data-theme="dark"] #mb{border-bottom-color:rgba(255,255,255,0.04)}
+.mb-l{display:flex;align-items:center;gap:0}
+.mb-logo{width:20px;height:20px;background:var(--accent);border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:12px;cursor:pointer;flex-shrink:0;margin-right:8px;position:relative}
+[data-theme="dark"] .mb-logo{background:#8B4A18}
+.mb-menu{position:relative}
+.mb-btn{background:none;border:none;color:var(--mb-text);cursor:pointer;padding:3px 9px;border-radius:4px;font-size:13px;font-weight:500;font-family:inherit}
+.mb-btn:hover,.mb-btn.on{background:var(--mb-hover)}
+.mb-drop{display:none;position:absolute;top:calc(100% + 3px);left:0;background:var(--drop-bg);border:1px solid var(--drop-border);border-radius:7px;padding:4px 0;min-width:210px;box-shadow:0 8px 28px rgba(0,0,0,0.15);z-index:99999}
+.mb-drop.show{display:block}
+.mdi{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;font-size:13px;color:var(--drop-text);cursor:pointer;white-space:nowrap}
+.mdi:hover{background:var(--drop-hover)}
+.mdi .sc{color:var(--drop-dim);font-size:12px;margin-left:18px}
+.mds{height:1px;background:var(--drop-border);margin:3px 0}
+.mb-r{display:flex;align-items:center;gap:8px;color:var(--mb-text);font-size:13px}
+#theme-ic{cursor:pointer;font-size:15px;line-height:1;opacity:.9;position:relative}
+#theme-ic:hover{opacity:1}
+
+/* ── DISPLAY PANEL ────────────────────────────────────────────── */
+#display-panel{display:none;position:absolute;top:calc(100% + 4px);right:0;width:300px;background:var(--drop-bg);border:1px solid var(--drop-border);border-radius:9px;padding:16px;box-shadow:0 10px 32px rgba(0,0,0,0.18);z-index:99999}
+#display-panel.show{display:block}
+.dp-hdr{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--drop-dim);margin-bottom:14px}
+.dp-label{font-size:13px;color:var(--text);margin-bottom:8px}
+.dp-slider-wrap{margin-bottom:4px}
+#brightness-slider{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:linear-gradient(to right,var(--accent) 0%,var(--accent) var(--pct,100%),var(--sep) var(--pct,100%));border-radius:2px;cursor:pointer;outline:none}
+#brightness-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.3)}
+.dp-slider-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--drop-dim);margin-bottom:14px}
+.dp-colors{display:flex;gap:6px;margin-bottom:14px}
+.dp-col-swatch{width:52px;height:38px;border-radius:5px;cursor:pointer;border:2px solid transparent;transition:border-color .15s;flex:1}
+.dp-col-swatch.on{border-color:var(--text)!important}
+.dp-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.dp-row-label{font-size:13px;color:var(--text)}
+.dp-toggle{padding:3px 10px;font-size:12px;font-family:inherit;border:1px solid var(--sep);border-radius:3px;background:var(--win-bg);color:var(--text-dim);cursor:pointer;font-weight:500}
+.dp-toggle.on{background:var(--accent);color:white;border-color:var(--accent)}
+.dp-link{font-size:13px;color:var(--accent);cursor:pointer;text-decoration:underline}
+.dp-link:hover{opacity:.8}
+.dp-section-title{font-size:12px;color:var(--drop-dim);margin-bottom:6px}
+
+/* ── DESKTOP ──────────────────────────────────────────────────── */
+#desk{position:fixed;top:26px;left:0;right:0;bottom:52px;overflow:hidden;background:var(--desktop);transition:background .3s}
+
+/* ── DESKTOP ICONS ────────────────────────────────────────────── */
+.di{position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:5px;border-radius:6px;width:68px}
+.di:hover{background:rgba(255,255,255,0.18)}
+.di.sel{background:rgba(255,255,255,0.25)}
+[data-theme="dark"] .di:hover{background:rgba(200,120,64,0.12)}
+[data-theme="dark"] .di.sel{background:rgba(200,120,64,0.2)}
+.ico{width:40px;height:34px;position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ico.folder{background:#8B3A0A;border-radius:0 5px 5px 5px}
+.ico.folder::before{content:'';position:absolute;top:-5px;left:0;width:14px;height:7px;background:#8B3A0A;border-radius:3px 3px 0 0;filter:brightness(1.2)}
+[data-theme="light"][data-color="green"]  .ico.folder{background:#1E6820}
+[data-theme="light"][data-color="green"]  .ico.folder::before{background:#1E6820}
+[data-theme="light"][data-color="blue"]   .ico.folder{background:#1A3D7A}
+[data-theme="light"][data-color="blue"]   .ico.folder::before{background:#1A3D7A}
+[data-theme="light"][data-color="purple"] .ico.folder{background:#4A1A7A}
+[data-theme="light"][data-color="purple"] .ico.folder::before{background:#4A1A7A}
+[data-theme="dark"] .ico.folder{background:var(--accent)}
+[data-theme="dark"] .ico.folder::before{background:var(--accent)}
+.ico.file{width:32px;height:40px;background:#F5EEE6;border:1px solid rgba(0,0,0,0.12);border-radius:2px 8px 2px 2px}
+.ico.file::before{content:'';position:absolute;top:0;right:0;width:0;height:0;border-left:9px solid rgba(200,180,160,0.55);border-top:9px solid rgba(0,0,0,0.07)}
+[data-theme="dark"] .ico.file{background:#1c1008;border-color:#3a1e0c}
+.ico.mail{width:36px;height:28px;background:#F5EEE6;border:1px solid rgba(0,0,0,0.12);border-radius:3px}
+[data-theme="dark"] .ico.mail{background:#1c1008;border-color:#3a1e0c}
+.di-lbl{font-size:11px;color:white;text-align:center;line-height:1.25;max-width:64px;word-break:break-word;text-shadow:0 1px 3px rgba(0,0,0,0.45)}
+[data-theme="dark"] .di-lbl{color:var(--text);text-shadow:none}
+
+/* ── WINDOW ───────────────────────────────────────────────────── */
+.win{position:absolute;display:none;flex-direction:column;background:var(--win-bg);border:1px solid var(--win-border);border-radius:9px;min-width:280px;min-height:32px;overflow:hidden;box-shadow:0 8px 36px rgba(0,0,0,0.16)}
+.win.open{display:flex}
+.win.minimized .wbody,.win.minimized .wrz{display:none!important}
+.wtb{height:32px;background:var(--win-tb);border-bottom:1px solid var(--win-border);display:flex;align-items:center;padding:0 10px;cursor:default;flex-shrink:0;user-select:none;gap:8px}
+.win.minimized .wtb{border-bottom:none}
+.wdot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.wtitle{font-size:13px;color:var(--text);flex:1;font-weight:500}
+.wcount{font-size:12px;color:var(--text-dim);display:flex;align-items:center;gap:4px;flex-shrink:0}
+.wcount .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
+.wbtns{display:flex;gap:3px}
+.wb{width:24px;height:19px;border-radius:3px;border:1px solid var(--win-border);background:var(--win-bg);cursor:pointer;font-size:13px;color:var(--text-dim);display:flex;align-items:center;justify-content:center;font-family:inherit;line-height:1}
+.wb:hover{background:var(--accent);color:white;border-color:var(--accent)}
+.wbody{flex:1;overflow-y:auto;overflow-x:hidden}
+.wbody::-webkit-scrollbar{width:5px}
+.wbody::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:3px}
+.wrz{position:absolute;bottom:0;right:0;width:14px;height:14px;cursor:se-resize;opacity:.3}
+.wrz::after{content:'';position:absolute;bottom:3px;right:3px;width:7px;height:7px;border-right:2px solid var(--text-dim);border-bottom:2px solid var(--text-dim)}
+
+/* ── DOCK ─────────────────────────────────────────────────────── */
+#dock{position:fixed;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:6px 8px;background:var(--dock-bg);border:1.5px solid var(--dock-border);border-radius:13px;backdrop-filter:blur(14px);z-index:9999;box-shadow:0 2px 16px rgba(0,0,0,0.12)}
+.dkb{width:36px;height:36px;border-radius:8px;background:var(--dock-btn);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s;flex-shrink:0;position:relative;border:none;padding:0}
+.dkb:hover{transform:scale(1.12) translateY(-3px)}
+.dkb.dim{opacity:.5}
+.dkb svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+[data-theme="dark"] .dkb svg{stroke:var(--mb-text)}
+.dtt{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--drop-bg);border:1px solid var(--drop-border);border-radius:4px;padding:3px 8px;font-size:11px;color:var(--drop-text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+.dkb:hover .dtt{opacity:1}
+
+/* ── SITE STATS WINDOW ────────────────────────────────────────── */
+.stats-h1{font-size:19px;font-weight:600;color:var(--text);margin-bottom:12px}
+.stats-hr{border:none;border-top:1px solid var(--sep);margin-bottom:14px}
+.stats-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:10px}
+.stats-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.stats-card{background:var(--win-tb);border:1px solid var(--sep);border-radius:5px;padding:12px}
+.stats-card-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:6px}
+.stats-card-val{font-size:23px;font-weight:600;color:var(--text-bright);font-variant-numeric:tabular-nums}
+.stats-table{width:100%;border-collapse:collapse}
+.stats-table th{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);text-align:left;padding:6px 0;border-bottom:1px solid var(--sep)}
+.stats-table th:not(:first-child){text-align:right}
+.stats-table td{font-size:13px;color:var(--text);padding:8px 0;border-bottom:1px solid var(--sep)}
+.stats-table td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;color:var(--text-dim)}
+
+/* ── ABOUT WINDOW ─────────────────────────────────────────────── */
+.aname{font-size:33px;font-weight:300;color:var(--text-bright);letter-spacing:-1px;margin-bottom:14px;font-family:Georgia,'Times New Roman',serif;line-height:1.1}
+.aname .dsh{margin:0 6px;color:var(--text-dim)}
+.abio{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:14px}
+.alink{color:var(--accent);text-decoration:underline;cursor:pointer}
+.afocus{border:1px solid var(--sep);border-radius:5px;padding:14px;margin-bottom:16px;background:var(--win-tb)}
+.afocus-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:10px}
+.afi{display:flex;gap:8px;font-size:13px;color:var(--text);line-height:1.5;margin-bottom:5px}
+.afi::before{content:"•";color:var(--accent);flex-shrink:0}
+.atl-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:6px}
+.atl-note{font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:12px}
+.aebtn{background:var(--accent);color:white;border:none;border-radius:4px;padding:9px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.aebtn:hover{opacity:.85}
+
+/* ── SETTINGS WINDOW ──────────────────────────────────────────── */
+.sh1{font-size:23px;font-weight:600;color:var(--text);margin-bottom:18px}
+.ssec{border:1px solid var(--sep);border-radius:6px;padding:14px 16px;margin-bottom:14px}
+.ssec-t{font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px}
+.srow{margin-bottom:10px}
+.srow:last-child{margin-bottom:0}
+.slbl{font-size:13px;color:var(--text-dim);margin-bottom:6px;display:block}
+.tog{display:flex}
+.togb{padding:5px 14px;font-size:13px;font-family:inherit;border:1px solid var(--sep);background:var(--win-bg);color:var(--text-dim);cursor:pointer}
+.togb:first-child{border-radius:4px 0 0 4px}
+.togb:last-child{border-radius:0 4px 4px 0;border-left:none}
+.togb.on{background:var(--accent);color:white;border-color:var(--accent)}
+.colbtns{display:flex;gap:5px;flex-wrap:wrap}
+.colb{display:flex;align-items:center;gap:5px;padding:4px 10px;font-size:13px;font-family:inherit;border:1px solid var(--sep);border-radius:4px;background:var(--win-bg);color:var(--text-dim);cursor:pointer}
+.colb.on{border-color:var(--accent);color:var(--text);font-weight:500}
+.csw{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.wpnote{font-size:12px;color:var(--text-dim);margin-bottom:10px;line-height:1.5}
+.wpgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.wpthumb{aspect-ratio:16/10;border-radius:4px;cursor:pointer;border:2px solid transparent;overflow:hidden;position:relative;transition:border-color .15s}
+.wpthumb.on{border-color:var(--accent)}
+.wptlbl{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.45);color:white;font-size:8px;padding:2px 4px;line-height:1.4}
+
+/* ── FOLDER WINDOW ────────────────────────────────────────────── */
+.folder-hdr{padding:0 14px;height:36px;display:flex;align-items:center;justify-content:space-between;background:var(--win-tb);border-bottom:1px solid var(--sep)}
+.folder-hdr-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);font-weight:600}
+.folder-hdr-count{font-size:11px;color:var(--text-dim)}
+.fitem{display:flex;align-items:center;gap:12px;padding:8px 14px;border-bottom:1px solid var(--sep);cursor:pointer}
+.fitem:hover{background:rgba(139,58,10,0.04)}
+[data-theme="dark"] .fitem:hover{background:rgba(200,120,64,0.05)}
+.fitem-thumb{width:36px;height:28px;border-radius:3px;flex-shrink:0;background:var(--win-tb);border:1px solid var(--sep);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.fitem-thumb svg{width:16px;height:16px;stroke:var(--text-dim);fill:none}
+.fitem-name{flex:1;font-size:13px;color:var(--text)}
+.fitem-type{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px}
+
+/* ── GUIDE WINDOW ─────────────────────────────────────────────── */
+.guide{padding:20px}
+.guide h1{font-size:19px;font-weight:700;color:var(--text);margin-bottom:8px}
+.guide p{font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:14px}
+.guide h2{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px}
+.guide ul{list-style:none;margin-bottom:14px}
+.guide ul li{font-size:13px;color:var(--text-dim);line-height:1.6;padding-left:14px;position:relative;margin-bottom:3px}
+.guide ul li::before{content:"•";position:absolute;left:0;color:var(--accent)}
+.guide code{font-family:'Courier New',monospace;background:var(--win-tb);padding:2px 5px;border-radius:3px;font-size:12px;color:var(--text)}
+.clibg{background:var(--win-tb);border-radius:4px;padding:9px 13px;font-family:'Courier New',monospace;font-size:12px;color:var(--accent);margin-bottom:14px;line-height:1.6}
+
+/* ── PROJECTS / CONTACT / BLOG / EXP / TERM ───────────────────── */
+.plhdr{padding:14px 16px 10px;border-bottom:1px solid var(--sep)}
+.plhdr h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px}
+.plhdr p{font-size:12px;color:var(--text-dim)}
+.pi{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--sep);cursor:pointer}
+.pi:hover{background:rgba(139,58,10,0.04)}
+[data-theme="dark"] .pi:hover{background:rgba(200,120,64,0.05)}
+.pthumb{width:54px;height:40px;border-radius:5px;background:var(--win-tb);border:1px solid var(--sep);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px}
+.ptag{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:2px}
+.pname{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.pdesc{font-size:11px;color:var(--text-dim);line-height:1.5}
+.cpad{padding:20px}
+.cpad h2{font-size:19px;font-weight:600;color:var(--text);margin-bottom:6px}
+.cpad p{font-size:13px;color:var(--text-dim);margin-bottom:18px;line-height:1.5}
+.frow{display:flex;gap:10px;margin-bottom:10px}
+.fg{flex:1}
+.fl{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;display:block}
+.fi,.fta{width:100%;background:var(--input-bg);border:1px solid var(--input-border);border-radius:4px;padding:7px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:border-color .15s}
+.fi:focus,.fta:focus{border-color:var(--accent)}
+.fta{height:80px;resize:vertical;margin-bottom:10px}
+.fsub{width:100%;background:var(--accent);border:none;border-radius:4px;padding:10px;color:white;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.fsub:hover{opacity:.85}
+.eitem{padding:14px 16px;border-bottom:1px solid var(--sep)}
+.eperiod{font-size:11px;color:var(--text-dim);margin-bottom:3px}
+.erole{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+.eco{font-size:12px;color:var(--accent);margin-bottom:5px}
+.edesc{font-size:12px;color:var(--text-dim);line-height:1.5}
+.blhdr{padding:14px 16px 10px;border-bottom:1px solid var(--sep)}
+.blhdr h2{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px}
+.blhdr p{font-size:12px;color:var(--text-dim)}
+.bpost{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--sep);cursor:pointer}
+.bpost:hover{background:rgba(139,58,10,0.04)}
+[data-theme="dark"] .bpost:hover{background:rgba(200,120,64,0.05)}
+.bic{width:30px;height:30px;border-radius:5px;background:var(--accent);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.binf{flex:1}
+.btitle{font-size:13px;color:var(--text);line-height:1.4}
+.bmeta{font-size:11px;color:var(--text-dim);margin-top:2px}
+.barr{color:var(--text-dim);font-size:13px}
+.tbody{padding:14px 16px;font-family:'Courier New',monospace;font-size:13px;line-height:1.7}
+.tline{color:var(--text-dim)}
+.tcmd::before{content:"$ ";color:var(--accent)}
+.tirow{display:flex;align-items:center;padding:0 16px 12px}
+.tirow::before{content:"$ ";color:var(--accent);font-family:'Courier New',monospace;font-size:13px;flex-shrink:0}
+#ti{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:'Courier New',monospace;font-size:13px;caret-color:var(--accent)}
+
+/* ── SEARCH ───────────────────────────────────────────────────── */
+#srch{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:99998;align-items:flex-start;justify-content:center;padding-top:80px}
+#srch.sh{display:flex}
+.sbox{width:480px;background:var(--win-bg);border:1px solid var(--win-border);border-radius:10px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.2)}
+.sinrow{display:flex;align-items:center;padding:12px 14px;gap:10px;border-bottom:1px solid var(--sep)}
+#sinp{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:15px}
+.sres{padding:9px 14px;cursor:pointer;display:flex;align-items:center;gap:10px}
+.sres:hover{background:var(--drop-hover)}
+.sri{font-size:16px;width:24px;text-align:center}
+.srt{font-size:14px;color:var(--text)}
+.srs{font-size:12px;color:var(--text-dim)}
+
+/* ── CONTEXT MENU ─────────────────────────────────────────────── */
+#ctx{display:none;position:absolute;background:var(--drop-bg);border:1px solid var(--drop-border);border-radius:6px;padding:4px 0;z-index:99999;min-width:140px;box-shadow:0 4px 16px rgba(0,0,0,0.16)}
+#ctx.sh{display:block}
+.ci{padding:6px 14px;font-size:13px;color:var(--drop-text);cursor:pointer}
+.ci:hover{background:var(--drop-hover)}
+.csep{height:1px;background:var(--drop-border);margin:3px 0}
+
+/* ── ANIM ─────────────────────────────────────────────────────── */
+@keyframes wop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.wop{animation:wop .14s ease-out}
+.pad{padding:18px}
+
+/* ── WORKS REDESIGN ─────────────────────────────────────────────── */
+.pl-desc{font-size:12px;color:var(--text-dim);line-height:1.55;padding:12px 16px;border-bottom:1px solid var(--sep)}
+.pl-shdr{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);padding:10px 16px 5px}
+.pl-item{display:flex;align-items:center;padding:7px 16px;border-bottom:1px solid var(--sep);cursor:pointer;font-size:12px}
+.pl-item:hover{background:var(--drop-hover)}
+.pl-item:hover .pl-iname{color:var(--accent)}
+.pl-iname{font-size:13px;font-weight:500;color:var(--text);min-width:130px;flex-shrink:0}
+.pl-idot{color:var(--sep);margin:0 6px;flex-shrink:0}
+.pl-irole{color:var(--text-dim);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl-idates{color:var(--text-dim);white-space:nowrap;margin:0 6px}
+.pl-itype{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-dim);background:var(--win-tb);border:1px solid var(--sep);border-radius:2px;padding:2px 5px;flex-shrink:0}
+
+/* ── GANTT ───────────────────────────────────────────────────────── */
+.gantt-wrap{padding:10px 16px 16px}
+.gantt-shdr{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:8px}
+.gantt-hdr{display:flex;align-items:center;border-bottom:1px solid var(--sep);padding-bottom:4px}
+.gantt-hdr-lbl{width:100px;flex-shrink:0;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim)}
+.gantt-hdr-years{flex:1;display:flex;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim)}
+.gantt-yr{border-left:1px solid var(--sep);padding-left:4px}
+.gantt-row{display:flex;align-items:center;border-bottom:1px solid var(--sep);padding:4px 0}
+.gantt-rn{width:100px;flex-shrink:0;font-size:11px;color:var(--text-dim)}
+.gantt-bars{flex:1;height:10px;position:relative}
+.gantt-bar{position:absolute;top:0;height:10px;border-radius:2px;background:var(--accent);opacity:.65}
+.gantt-vl{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--sep)}
+.gantt-tl{position:absolute;top:-18px;bottom:-3px;width:2px;background:var(--accent);opacity:.55}
+.gantt-tl-lbl{position:absolute;top:-17px;font-size:7px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);transform:translateX(-50%)}
+
+/* ── PROJECT DETAIL ─────────────────────────────────────────────── */
+.proj-split{display:flex;height:100%;overflow:hidden}
+.proj-left{width:285px;flex-shrink:0;overflow-y:auto;padding:18px 16px;border-right:1px solid var(--sep)}
+.proj-right{flex:1;overflow-y:auto;background:var(--win-tb);padding:14px}
+.proj-pname{font-size:21px;font-weight:700;color:var(--text);margin-bottom:3px}
+.proj-pmeta{font-size:10px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase;margin-bottom:12px}
+.proj-visit{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:5px 10px;cursor:pointer;margin-bottom:14px;background:none;font-family:inherit}
+.proj-visit:hover{background:var(--accent);color:white}
+.proj-slbl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:5px;margin-top:12px}
+.proj-tags{display:flex;flex-wrap:wrap;gap:3px}
+.proj-tag{font-size:10px;text-transform:uppercase;letter-spacing:.3px;border:1px solid var(--sep);border-radius:2px;padding:3px 7px;color:var(--text-dim)}
+.proj-ref-item{display:flex;align-items:center;gap:8px;border:1px solid var(--sep);border-radius:3px;padding:7px 10px;margin-top:4px;cursor:pointer;font-size:12px;color:var(--text);font-weight:500}
+.proj-ref-item:hover{background:var(--win-bg)}
+.proj-ref-dot{width:11px;height:11px;background:var(--accent);border-radius:2px;flex-shrink:0}
+.proj-origin-h{font-size:14px;font-weight:600;color:var(--text);margin-top:14px;margin-bottom:5px}
+.proj-origin-p{font-size:12px;color:var(--text-dim);line-height:1.65}
+.proj-vis-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:10px}
+.proj-slide{border:1px solid var(--sep);border-radius:5px;overflow:hidden;margin-bottom:8px}
+.proj-slide-thumb{width:100%;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center}
+.proj-slide-cap{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);padding:5px 8px;border-top:1px solid var(--sep);background:var(--win-bg)}
+
+/* ── BLOG REDESIGN ──────────────────────────────────────────────── */
+.bpost2{padding:12px 16px;border-bottom:1px solid var(--sep);cursor:pointer}
+.bpost2:hover{background:var(--drop-hover)}
+.bpost2-top{display:flex;align-items:flex-start;gap:7px;margin-bottom:3px}
+.bpost2-ic{width:16px;height:16px;border:1px solid var(--sep);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:8px;color:var(--text-dim)}
+.bpost2-name{font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
+.bpost2-meta{font-size:11px;color:var(--text-dim);margin-bottom:5px;padding-left:23px}
+.bpost2-excerpt{font-size:12px;color:var(--text-dim);line-height:1.55;padding-left:23px}
+
+/* ── BLOG POST VIEWER ────────────────────────────────────────────── */
+.post-hdr{padding:18px 20px 14px;border-bottom:1px solid var(--sep)}
+.post-date{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:6px}
+.post-title{font-size:18px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px}
+.post-meta{font-size:11px;color:var(--text-dim)}
+.post-body{padding:18px 20px;font-size:13px;color:var(--text-dim);line-height:1.7}
+.post-body p{margin-bottom:12px}
+.post-body h2{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;margin-top:14px}
+.post-body code{font-family:'Courier New',monospace;background:var(--win-tb);padding:2px 5px;border-radius:3px;font-size:11px}
+
+/* ── MACOS WINDOW BUTTONS ────────────────────────────────────────── */
+.wdot{display:none!important}
+.wbtns{display:flex;gap:6px;align-items:center;order:-1}
+.wb{width:12px!important;height:12px!important;border-radius:50%!important;border:none!important;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;padding:0;font-size:0;color:transparent!important;flex-shrink:0}
+.wb:hover{filter:brightness(0.8)!important;color:transparent!important}
+.wb::after{position:absolute;font-size:8px;font-weight:900;color:rgba(0,0,0,0.55);opacity:0;transition:opacity .12s;line-height:1}
+.wtb:hover .wb::after{opacity:1}
+.wbtns .wb:nth-child(1){order:2;background:#FEBC2E!important}
+.wbtns .wb:nth-child(2){order:3;background:#28C840!important}
+.wbtns .wb:nth-child(3){order:1;background:#FF5F57!important}
+.wbtns .wb:nth-child(1)::after{content:'−'}
+.wbtns .wb:nth-child(2)::after{content:'+'}
+.wbtns .wb:nth-child(3)::after{content:'×'}
+</style>
+</head>
+<body>
+
+<!-- MENU BAR -->
+<div id="mb">
+  <div class="mb-l">
+    <div class="mb-logo" onclick="ow('stats')">A</div>
+
+    <div class="mb-menu" id="mn-portfolio">
+      <button class="mb-btn" onclick="toggleMenu('portfolio')">Portfolio</button>
+      <div class="mb-drop" id="drop-portfolio">
+        <div class="mdi" onclick="ow('about');cm()">About Portfolio<span class="sc">Ctrl+Alt+A</span></div>
+        <div class="mdi" onclick="ow('contact');cm()">Contact<span class="sc">Ctrl+Alt+K</span></div>
+        <div class="mdi" onclick="ow('guide');cm()">Open Guide<span class="sc">Ctrl+Alt+H</span></div>
+        <div class="mds"></div>
+        <div class="mdi" onclick="ow('settings');cm()">Settings…</div>
+        <div class="mds"></div>
+        <div class="mdi" onclick="resetSys();cm()">Reset System</div>
+      </div>
+    </div>
+
+    <div class="mb-menu" id="mn-file">
+      <button class="mb-btn" onclick="toggleMenu('file')">File</button>
+      <div class="mb-drop" id="drop-file">
+        <div class="mdi" onclick="ow('projects');cm()">Open Works<span class="sc">Ctrl+Alt+P</span></div>
+        <div class="mdi" onclick="ow('blog');cm()">Open Blog<span class="sc">Ctrl+Alt+B</span></div>
+        <div class="mds"></div>
+        <div class="mdi" onclick="ow('terminal');cm()">New Terminal<span class="sc">Ctrl+Alt+T</span></div>
+      </div>
+    </div>
+
+    <div class="mb-menu" id="mn-view">
+      <button class="mb-btn" onclick="toggleMenu('view')">View</button>
+      <div class="mb-drop" id="drop-view">
+        <div class="mdi" onclick="location.reload();cm()">Refresh<span class="sc">Ctrl+Alt+R</span></div>
+        <div class="mdi" onclick="xwf();cm()">Maximize<span class="sc">Ctrl+Alt+F</span></div>
+        <div class="mdi" onclick="mwf();cm()">Minimize<span class="sc">Ctrl+Alt+M</span></div>
+        <div class="mdi" onclick="cwf();cm()">Close<span class="sc">Ctrl+Alt+W</span></div>
+        <div class="mds"></div>
+        <div class="mdi" onclick="centerf();cm()">Center Window<span class="sc">Ctrl+Alt+C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-r" style="position:relative">
+    <span id="theme-ic" onclick="toggleDisplayPanel(event)">☀</span>
+    <!-- DISPLAY PANEL -->
+    <div id="display-panel">
+      <div class="dp-hdr">Display</div>
+      <div class="dp-label">Brightness</div>
+      <div class="dp-slider-wrap">
+        <input type="range" id="brightness-slider" min="30" max="130" value="100" oninput="applyBrightness(this.value)">
+      </div>
+      <div class="dp-slider-labels"><span>Dim</span><span id="bright-val">100%</span><span>Bright</span></div>
+      <div class="dp-section-title">Theme color</div>
+      <div class="dp-colors">
+        <div class="dp-col-swatch on" id="dp-orange" style="background:#F97316" onclick="setColor('orange');updateDpSwatches('orange')"></div>
+        <div class="dp-col-swatch" id="dp-green" style="background:#16A34A" onclick="setColor('green');updateDpSwatches('green')"></div>
+        <div class="dp-col-swatch" id="dp-blue" style="background:#2563EB" onclick="setColor('blue');updateDpSwatches('blue')"></div>
+        <div class="dp-col-swatch" id="dp-purple" style="background:#7C3AED" onclick="setColor('purple');updateDpSwatches('purple')"></div>
+      </div>
+      <div class="dp-row">
+        <span class="dp-row-label">Switch to dark mode</span>
+        <button class="dp-toggle" id="dp-dark-btn" onclick="toggleTheme()">OFF</button>
+      </div>
+      <div class="dp-link" onclick="ow('settings');closeDisplayPanel()">Open settings…</div>
+    </div>
+    <span id="clk"></span>
+  </div>
+</div>
+
+<!-- DESKTOP -->
+<div id="desk" oncontextmenu="showCtx(event)" onclick="deskClick(event)">
+
+  <!-- Icons -->
+  <div class="di" style="left:12px;top:10px" ondblclick="ow('berlin')" onclick="sel(this)">
+    <div class="ico folder"></div><div class="di-lbl">berlin</div>
+  </div>
+  <div class="di" style="left:12px;top:88px" ondblclick="ow('portugal')" onclick="sel(this)">
+    <div class="ico folder"></div><div class="di-lbl">portugal</div>
+  </div>
+  <div class="di" style="left:12px;top:166px" ondblclick="ow('france')" onclick="sel(this)">
+    <div class="ico folder"></div><div class="di-lbl">provance-france</div>
+  </div>
+  <div class="di" style="left:12px;top:254px" ondblclick="ow('contact')" onclick="sel(this)">
+    <div class="ico mail" style="display:flex;align-items:center;justify-content:center">
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="var(--text-dim)" stroke-width="1.4" stroke-linecap="round">
+        <rect x="1" y="1" width="20" height="14" rx="1.5"/>
+        <path d="M1 2.5l10 7 10-7"/>
+      </svg>
+    </div>
+    <div class="di-lbl">Contact</div>
+  </div>
+  <div class="di" style="left:12px;top:332px" ondblclick="ow('about')" onclick="sel(this)">
+    <div class="ico file"></div><div class="di-lbl">about.txt</div>
+  </div>
+  <div class="di" style="left:12px;top:410px" ondblclick="ow('blog')" onclick="sel(this)">
+    <div class="ico file"></div><div class="di-lbl">build-log.md</div>
+  </div>
+
+  <!-- Coin image -->
+  <img id="dog" src="logo2.png" style="position:absolute;pointer-events:none;width:260px;height:260px;object-fit:contain;opacity:0.55">
+
+  <!-- ===== WINDOWS ===== -->
+
+  <!-- SITE STATS -->
+  <div class="win" id="win-stats" style="width:580px;height:420px">
+    <div class="wtb" id="tb-stats">
+      <div class="wdot"></div>
+      <div class="wtitle">Site Stats</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('stats')">−</button>
+        <button class="wb" onclick="xw('stats')">⊡</button>
+        <button class="wb" onclick="cw('stats')">×</button>
+      </div>
+    </div>
+    <div class="wbody"><div class="pad">
+      <div class="stats-h1">Site Stats</div>
+      <hr class="stats-hr">
+      <div class="stats-lbl">Overview</div>
+      <div class="stats-cards">
+        <div class="stats-card">
+          <div class="stats-card-lbl">Visitors all time</div>
+          <div class="stats-card-val">2,917</div>
+        </div>
+        <div class="stats-card">
+          <div class="stats-card-lbl">Page views all time</div>
+          <div class="stats-card-val">4,068</div>
+        </div>
+      </div>
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Today</th>
+            <th>7D</th>
+            <th>30D</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Unique visitors</td>
+            <td>123</td>
+            <td>1,687</td>
+            <td>2,917</td>
+          </tr>
+          <tr>
+            <td>Page views</td>
+            <td>139</td>
+            <td>2,421</td>
+            <td>4,068</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- BERLIN FOLDER -->
+  <div class="win" id="win-berlin" style="width:580px;height:460px">
+    <div class="wtb" id="tb-berlin">
+      <div class="wtitle">berlin</div>
+      <div class="wcount"><span class="dot"></span>4 items</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('berlin')">−</button>
+        <button class="wb" onclick="xw('berlin')">⊡</button>
+        <button class="wb" onclick="cw('berlin')">×</button>
+      </div>
+    </div>
+    <div class="wbody">
+      <div class="folder-hdr"><span class="folder-hdr-lbl">Folder Contents</span><span class="folder-hdr-count">4 items</span></div>
+      <div class="fitem">
+        <div class="fitem-thumb"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M5 7h6M5 10h4"/></svg></div>
+        <span class="fitem-name">berlin-trip.txt</span>
+        <span class="fitem-type">Text</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#2c3e50,#4a6741)"></div>
+        <span class="fitem-name">berlin-1.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#1a1a2e,#3d5a80)"></div>
+        <span class="fitem-name">berlin-2.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#333,#555)"></div>
+        <span class="fitem-name">berlin-3.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- PORTUGAL FOLDER -->
+  <div class="win" id="win-portugal" style="width:580px;height:500px">
+    <div class="wtb" id="tb-portugal">
+      <div class="wtitle">portugal</div>
+      <div class="wcount"><span class="dot"></span>6 items</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('portugal')">−</button>
+        <button class="wb" onclick="xw('portugal')">⊡</button>
+        <button class="wb" onclick="cw('portugal')">×</button>
+      </div>
+    </div>
+    <div class="wbody">
+      <div class="folder-hdr"><span class="folder-hdr-lbl">Folder Contents</span><span class="folder-hdr-count">6 items</span></div>
+      <div class="fitem">
+        <div class="fitem-thumb"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M5 7h6M5 10h4"/></svg></div>
+        <span class="fitem-name">portugal-trip.txt</span>
+        <span class="fitem-type">Text</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#c8a96e,#a07040)"></div>
+        <span class="fitem-name">portugal-2.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#4a7a9b,#2c5f7a)"></div>
+        <span class="fitem-name">portugal-9.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#8a7a5a,#6a5a3a)"></div>
+        <span class="fitem-name">portugal-11.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#5a8a4a,#3a6a2a)"></div>
+        <span class="fitem-name">portugal-14.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#e8c870,#c8a040)"></div>
+        <span class="fitem-name">portugal-sunset.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- FRANCE FOLDER -->
+  <div class="win" id="win-france" style="width:580px;height:440px">
+    <div class="wtb" id="tb-france">
+      <div class="wtitle">provance-france</div>
+      <div class="wcount"><span class="dot"></span>5 items</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('france')">−</button>
+        <button class="wb" onclick="xw('france')">⊡</button>
+        <button class="wb" onclick="cw('france')">×</button>
+      </div>
+    </div>
+    <div class="wbody">
+      <div class="folder-hdr"><span class="folder-hdr-lbl">Folder Contents</span><span class="folder-hdr-count">5 items</span></div>
+      <div class="fitem">
+        <div class="fitem-thumb"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M5 7h6M5 10h4"/></svg></div>
+        <span class="fitem-name">provance-notes.txt</span>
+        <span class="fitem-type">Text</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#c8a090,#a07060)"></div>
+        <span class="fitem-name">provance-1.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#7a9060,#5a7040)"></div>
+        <span class="fitem-name">provance-2.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#b08060,#8a6040)"></div>
+        <span class="fitem-name">provance-4.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+      <div class="fitem">
+        <div class="fitem-thumb" style="background:linear-gradient(135deg,#9060a0,#704080)"></div>
+        <span class="fitem-name">provance-lavender.png</span>
+        <span class="fitem-type">Image</span>
+      </div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="win" id="win-about" style="width:700px;height:580px">
+    <div class="wtb" id="tb-about">
+      <div class="wdot"></div>
+      <div class="wtitle">About</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('about')">−</button>
+        <button class="wb" onclick="xw('about')">⊡</button>
+        <button class="wb" onclick="cw('about')">×</button>
+      </div>
+    </div>
+    <div class="wbody"><div class="pad">
+      <div class="aname">Abdul<span class="dsh"> —— </span>Aziz</div>
+      <p class="abio">Based in [Your City], I am a full-stack software developer who enjoys building thoughtful, high-quality digital products. I love translating complex ideas into interfaces that feel clear, reliable, and fast.</p>
+      <p class="abio">Outside of code, I enjoy exploring new technologies and building things. Connect with me via <a class="alink" href="mailto:abahziz.ro@gmail.com">email</a> or <a class="alink" href="#">get in touch</a>.</p>
+      <div class="afocus">
+        <div class="afocus-lbl">Current Focus</div>
+        <div class="afi">Building and shipping interesting web products from scratch.</div>
+        <div class="afi">Growing expertise in React, Next.js, TypeScript, and Node.js.</div>
+        <div class="afi">Continuing software engineering studies and open-source learning.</div>
+      </div>
+      <div class="atl-lbl">Full Timeline</div>
+      <p class="atl-note">View my complete experience timeline in a dedicated window with full role context.</p>
+      <button class="aebtn" onclick="ow('experience')">Open Experience</button>
+    </div></div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- GUIDE -->
+  <div class="win" id="win-guide" style="width:680px;height:560px">
+    <div class="wtb" id="tb-guide">
+      <div class="wdot"></div>
+      <div class="wtitle">Help</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('guide')">−</button>
+        <button class="wb" onclick="xw('guide')">⊡</button>
+        <button class="wb" onclick="cw('guide')">×</button>
+      </div>
+    </div>
+    <div class="wbody">
+      <div class="guide">
+        <h1>Portfolio Guide</h1>
+        <p>This site is a desktop-style portfolio. Open apps in draggable windows, browse files and folders, use intelligent search, and control everything through CLI commands in Terminal.</p>
+        <h2>How To Open Apps</h2>
+        <ul>
+          <li>Click app icons in the bottom app bar to open or focus a window.</li>
+          <li>Use Search to type what you want and let the site open matching windows for you.</li>
+          <li>Use Terminal with commands like <code>open</code> and <code>close</code> for command-line control.</li>
+        </ul>
+        <h2>Intelligent Search</h2>
+        <p>Search is intelligent and free-form. You can type anything naturally, and it can open apps, projects, blog posts, files, and folders.</p>
+        <div class="clibg">open contact &nbsp;|&nbsp; show projects &nbsp;|&nbsp; open blog &nbsp;|&nbsp; close all windows and open about</div>
+        <h2>CLI Quick Start</h2>
+        <p>Open the Terminal app and run commands. Good starters:</p>
+        <div class="clibg">help &nbsp;&nbsp; apps &nbsp;&nbsp; open &lt;app&gt; &nbsp;&nbsp; close &lt;app&gt; &nbsp;&nbsp; windows &nbsp;&nbsp; man &lt;command&gt;</div>
+      </div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="win" id="win-contact" style="width:520px;height:560px">
+    <div class="wtb" id="tb-contact">
+      <div class="wdot"></div>
+      <div class="wtitle">Contact</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('contact')">−</button>
+        <button class="wb" onclick="xw('contact')">⊡</button>
+        <button class="wb" onclick="cw('contact')">×</button>
+      </div>
+    </div>
+    <div class="wbody"><div class="cpad">
+      <h2>Contact</h2>
+      <p>Send a message directly for project inquiries, collaborations, or just to say hello.</p>
+      <form onsubmit="return false">
+        <div class="frow">
+          <div class="fg"><label class="fl">First name</label><input class="fi" type="text" placeholder="Your name"></div>
+          <div class="fg"><label class="fl">Last name</label><input class="fi" type="text" placeholder="Last name"></div>
+        </div>
+        <div style="margin-bottom:10px"><label class="fl">Email</label><input class="fi" type="email" placeholder="your@email.com"></div>
+        <div style="margin-bottom:10px"><label class="fl">Subject</label><input class="fi" type="text" placeholder="What's this about?"></div>
+        <div style="margin-bottom:10px"><label class="fl">Message</label><textarea class="fta" placeholder="Tell me about your project or idea..."></textarea></div>
+        <button class="fsub">Send message</button>
+      </form>
+    </div></div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- WORKS -->
+  <div class="win" id="win-projects" style="width:700px;height:580px">
+    <div class="wtb" id="tb-projects">
+      <div class="wdot"></div>
+      <div class="wtitle">Works</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('projects')">−</button>
+        <button class="wb" onclick="xw('projects')">⊡</button>
+        <button class="wb" onclick="cw('projects')">×</button>
+      </div>
+    </div>
+    <div class="wbody">
+      <div class="pl-desc">Explore selected projects with timelines, stack choices, and delivery outcomes. This view includes company and freelance examples in a horizontal timeline display.</div>
+      <div class="pl-shdr">PROJECT LIST</div>
+      <div class="pl-item" onclick="openProj('triqai')"><span class="pl-iname">Triqai</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="openProj('rediant')"><span class="pl-iname">Rediant</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Nov 2024 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="openProj('frames')"><span class="pl-iname">Through the Frames</span><span class="pl-idot">•</span><span class="pl-irole">Full stack developer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Sept 2025</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="openProj('hytura')"><span class="pl-iname">Hytura</span><span class="pl-idot">•</span><span class="pl-irole">Frontend Developer</span><span class="pl-idot">•</span><span class="pl-idates">Jan 2024 – Sept 2024</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="openProj('knitted')"><span class="pl-iname">Knitted</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Jul 2023 – May 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
+      <div class="pl-item" onclick="openProj('byside')"><span class="pl-iname">Byside</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Apr 2023 – Mar 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
+      <div class="gantt-wrap">
+        <div class="gantt-shdr">TIMELINE (FROM 2024)</div>
+        <div class="gantt-hdr">
+          <div class="gantt-hdr-lbl">PROJECTS</div>
+          <div class="gantt-hdr-years">
+            <div class="gantt-yr" style="flex:0 0 40%">2024</div>
+            <div class="gantt-yr" style="flex:0 0 40%">2025</div>
+            <div class="gantt-yr" style="flex:1">2026</div>
+          </div>
+        </div>
+        <div id="gantt-rows"></div>
+      </div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="win" id="win-experience" style="width:580px;height:460px">
+    <div class="wtb" id="tb-experience">
+      <div class="wdot"></div>
+      <div class="wtitle">Experience</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('experience')">−</button>
+        <button class="wb" onclick="xw('experience')">⊡</button>
+        <button class="wb" onclick="cw('experience')">×</button>
+      </div>
+    </div>
+    <div class="wbody">
+      <div class="eitem"><div class="eperiod">2024 — Present</div><div class="erole">Full Stack Developer</div><div class="eco">Freelance</div><div class="edesc">Building web applications, e-commerce stores, and SaaS products for clients across various industries.</div></div>
+      <div class="eitem"><div class="eperiod">2023 — 2024</div><div class="erole">Software Engineering Student</div><div class="eco">University</div><div class="edesc">Studying software engineering fundamentals, algorithms, data structures, and modern web development.</div></div>
+      <div class="eitem"><div class="eperiod">2022 — 2023</div><div class="erole">Junior Developer</div><div class="eco">Tech Company</div><div class="edesc">Developed and maintained web applications using React and Node.js in an agile team environment.</div></div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- BLOG -->
+  <div class="win" id="win-blog" style="width:700px;height:580px">
+    <div class="wtb" id="tb-blog">
+      <div class="wdot"></div>
+      <div class="wtitle">Blog</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('blog')">−</button>
+        <button class="wb" onclick="xw('blog')">⊡</button>
+        <button class="wb" onclick="cw('blog')">×</button>
+      </div>
+    </div>
+    <div class="wbody">
+      <div class="blhdr"><h2>Blog</h2><p>Browse posts in explorer mode. Click a post to open its article in a new window with metadata, images, and code blocks.</p></div>
+      <div class="pl-shdr">POST LIST</div>
+      <div class="bpost2" onclick="openPost(0)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Transaction Enrichment API on Cloudflare Workers</div></div><div class="bpost2-meta">10 Mar 2026 · 6 min read</div><div class="bpost2-excerpt">How I built Triqai's transaction enrichment API on Cloudflare Workers, using Durable Objects for atomic billing, a distributed singleflight pattern, and multi-tier edge caching to achieve 96% latency reduction.</div></div>
+      <div class="bpost2" onclick="openPost(1)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Personal Finance App with Open Banking in Europe</div></div><div class="bpost2-meta">04 Feb 2026 · 6 min read</div><div class="bpost2-excerpt">What it takes to build a personal finance SaaS that connects to European bank accounts. GoCardless for Open Banking, handling thousands of transactions, security and privacy decisions, and how transaction enrichment became its own product.</div></div>
+      <div class="bpost2" onclick="openPost(2)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">SEO for JavaScript-Heavy Portfolios</div></div><div class="bpost2-meta">20 Jan 2026 · 6 min read</div><div class="bpost2-excerpt">How I made a heavily interactive desktop-metaphor portfolio SEO-friendly using crawlable semantic HTML, structured data, llms.txt, and careful font loading, without sacrificing the creative UI.</div></div>
+      <div class="bpost2" onclick="openPost(3)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Headless Shopify Architecture Tradeoffs</div></div><div class="bpost2-meta">08 Dec 2025 · 7 min read</div><div class="bpost2-excerpt">An honest look at the architecture decisions behind building headless Shopify storefronts with Next.js, versus the 10+ Liquid theme stores I built at agencies. When headless makes sense, and when it really doesn't.</div></div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- TERMINAL -->
+  <div class="win" id="win-terminal" style="width:620px;height:420px">
+    <div class="wtb" id="tb-terminal">
+      <div class="wdot"></div>
+      <div class="wtitle">Terminal</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('terminal')">−</button>
+        <button class="wb" onclick="xw('terminal')">⊡</button>
+        <button class="wb" onclick="cw('terminal')">×</button>
+      </div>
+    </div>
+    <div class="wbody" id="tscroll">
+      <div class="tbody" id="tout">
+        <div class="tline">Abdul Aziz Portfolio — v1.0.0</div>
+        <div class="tline">Type <span style="color:var(--accent)">help</span> to see available commands.</div><br>
+      </div>
+      <div class="tirow"><input type="text" id="ti" placeholder="type a command..." onkeydown="tkey(event)" autocomplete="off" spellcheck="false"></div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="win" id="win-settings" style="width:520px;height:580px">
+    <div class="wtb" id="tb-settings">
+      <div class="wdot"></div>
+      <div class="wtitle">Settings</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('settings')">−</button>
+        <button class="wb" onclick="xw('settings')">⊡</button>
+        <button class="wb" onclick="cw('settings')">×</button>
+      </div>
+    </div>
+    <div class="wbody"><div class="pad">
+      <div class="sh1">Settings</div>
+      <div class="ssec">
+        <div class="ssec-t">Appearance</div>
+        <div class="srow">
+          <span class="slbl">Theme mode</span>
+          <div class="tog">
+            <button class="togb on" id="btn-light" onclick="setMode('light')">Light</button>
+            <button class="togb" id="btn-dark" onclick="setMode('dark')">Dark</button>
+          </div>
+        </div>
+        <div class="srow">
+          <span class="slbl">Theme color</span>
+          <div class="colbtns">
+            <button class="colb on" id="col-orange" onclick="setColor('orange')"><span class="csw" style="background:#F97316"></span>Orange</button>
+            <button class="colb" id="col-green" onclick="setColor('green')"><span class="csw" style="background:#16A34A"></span>Green</button>
+            <button class="colb" id="col-blue" onclick="setColor('blue')"><span class="csw" style="background:#2563EB"></span>Blue</button>
+            <button class="colb" id="col-purple" onclick="setColor('purple')"><span class="csw" style="background:#7C3AED"></span>Purple</button>
+          </div>
+        </div>
+      </div>
+      <div class="ssec">
+        <div class="ssec-t">Wallpaper</div>
+        <div class="wpnote">Choose the dog illustration or any indexed desktop photo.</div>
+        <div class="wpgrid" id="wg"></div>
+      </div>
+    </div></div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- PROJECT DETAIL (dynamic) -->
+  <div class="win" id="win-proj" style="width:780px;height:500px">
+    <div class="wtb" id="tb-proj">
+      <div class="wdot"></div>
+      <div class="wtitle" id="proj-win-title">Project</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('proj')">−</button>
+        <button class="wb" onclick="xw('proj')">⊡</button>
+        <button class="wb" onclick="cw('proj')">×</button>
+      </div>
+    </div>
+    <div class="wbody" style="overflow:hidden;padding:0">
+      <div class="proj-split" id="proj-win-content"></div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- BLOG POST VIEWER (dynamic) -->
+  <div class="win" id="win-post" style="width:580px;height:500px">
+    <div class="wtb" id="tb-post">
+      <div class="wdot"></div>
+      <div class="wtitle" id="post-win-title">Post</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('post')">−</button>
+        <button class="wb" onclick="xw('post')">⊡</button>
+        <button class="wb" onclick="cw('post')">×</button>
+      </div>
+    </div>
+    <div class="wbody" id="post-win-body"></div>
+    <div class="wrz"></div>
+  </div>
+
+  <!-- SEARCH -->
+  <div id="srch" onclick="if(event.target===this)hs()">
+    <div class="sbox">
+      <div class="sinrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="opacity:.4;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="sinp" placeholder="Search…" oninput="us(this.value)" onkeydown="sk(event)" autocomplete="off">
+      </div>
+      <div id="sres"></div>
+    </div>
+  </div>
+
+  <!-- CTX -->
+  <div id="ctx">
+    <div class="ci" onclick="ow('about')">Open About</div>
+    <div class="ci" onclick="ow('contact')">Open Contact</div>
+    <div class="csep"></div>
+    <div class="ci" onclick="ow('settings')">Settings</div>
+  </div>
+
+</div><!-- /desk -->
+
+<!-- DOCK with SVG icons -->
+<div id="dock">
+  <!-- About -->
+  <button class="dkb" onclick="ow('about')">
+    <svg viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.5"/><path d="M2 14.5c0-3 2.5-5 6-5s6 2 6 5"/></svg>
+    <div class="dtt">About</div>
+  </button>
+  <!-- Blog -->
+  <button class="dkb" onclick="ow('blog')">
+    <svg viewBox="0 0 16 16"><path d="M3 5h10M3 8h10M3 11h6"/></svg>
+    <div class="dtt">Blog</div>
+  </button>
+  <!-- Contact -->
+  <button class="dkb" onclick="ow('contact')">
+    <svg viewBox="0 0 16 16"><rect x="2" y="4" width="12" height="9" rx="1.5"/><path d="M2 5.5l6 4 6-4"/></svg>
+    <div class="dtt">Contact</div>
+  </button>
+  <!-- Experience -->
+  <button class="dkb" onclick="ow('experience')">
+    <svg viewBox="0 0 16 16"><rect x="2" y="3" width="2" height="2" rx=".5"/><rect x="2" y="7" width="2" height="2" rx=".5"/><rect x="2" y="11" width="2" height="2" rx=".5"/><path d="M6 4h8M6 8h8M6 12h8"/></svg>
+    <div class="dtt">Experience</div>
+  </button>
+  <!-- Works -->
+  <button class="dkb" onclick="ow('projects')">
+    <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1.5"/><path d="M2 6h12M6 6v8"/></svg>
+    <div class="dtt">Works</div>
+  </button>
+  <!-- Search -->
+  <button class="dkb" onclick="os()">
+    <svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4"/><path d="M11 11l3 3"/></svg>
+    <div class="dtt">Search</div>
+  </button>
+  <!-- Settings -->
+  <button class="dkb" onclick="ow('settings')">
+    <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="2"/><path d="M8 1.5v1.8M8 12.7v1.8M1.5 8h1.8M12.7 8h1.8M3.6 3.6l1.3 1.3M11.1 11.1l1.3 1.3M12.4 3.6l-1.3 1.3M4.9 11.1l-1.3 1.3"/></svg>
+    <div class="dtt">Settings</div>
+  </button>
+  <!-- Terminal -->
+  <button class="dkb" onclick="ow('terminal')">
+    <svg viewBox="0 0 16 16"><path d="M3 5.5l4 3-4 3"/><path d="M9 12h5"/></svg>
+    <div class="dtt">Terminal</div>
+  </button>
+  <!-- Clear -->
+  <button class="dkb dim" onclick="ca()">
+    <svg viewBox="0 0 16 16"><path d="M3 5h10M6 5V3.5h4V5"/><path d="M4.5 5l.8 8h5.4l.8-8"/></svg>
+    <div class="dtt">Clear All</div>
+  </button>
+</div>
+
+<script>
+// ── STATE ─────────────────────────────────────────────────────────
+var Z=100, openSet=new Set(), focused=null;
+var wins=['stats','berlin','portugal','france','about','guide','contact','projects','experience','blog','terminal','settings','proj','post'];
+var defpos={stats:{x:140,y:60},berlin:{x:160,y:60},portugal:{x:180,y:70},france:{x:200,y:80},about:{x:120,y:50},guide:{x:160,y:55},contact:{x:180,y:65},projects:{x:200,y:55},experience:{x:155,y:75},blog:{x:220,y:50},terminal:{x:175,y:85},settings:{x:280,y:60},proj:{x:220,y:60},post:{x:240,y:65}};
+var curTheme='light', curColor='orange', curWp=0;
+
+// ── CLOCK ─────────────────────────────────────────────────────────
+function tick(){
+  var n=new Date();
+  var ds=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],ms=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var tz='';
+  try{tz=' '+new Intl.DateTimeFormat('en',{timeZoneName:'short'}).formatToParts(n).find(function(p){return p.type==='timeZoneName';}).value;}catch(e){}
+  document.getElementById('clk').textContent=ds[n.getDay()]+' '+n.getDate()+' '+ms[n.getMonth()]+' '+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+tz;
+}
+tick(); setInterval(tick,1000);
+
+// ── COIN IMAGE POSITIONING ─────────────────────────────────────────
+(function(){
+  var img=document.getElementById('dog');
+  var desk=document.getElementById('desk');
+  function pos(){
+    var dw=desk.offsetWidth,dh=desk.offsetHeight;
+    img.style.left=Math.floor((dw-260)/2)+'px';
+    img.style.top=Math.floor((dh-260)/2)+'px';
+  }
+  pos(); window.addEventListener('resize',pos);
+})();
+
+// ── WINDOW MANAGEMENT ─────────────────────────────────────────────
+var urlMap={about:'/about',settings:'/settings',contact:'/contact',guide:'/guide',projects:'/works',blog:'/blog',experience:'/experience',terminal:'/terminal',stats:'/stats'};
+
+function ow(id){
+  var w=document.getElementById('win-'+id); if(!w)return;
+  if(!openSet.has(id)){
+    var p=defpos[id]||{x:120,y:60};
+    var off=openSet.size*20;
+    w.style.left=(p.x+off)+'px'; w.style.top=(p.y+off)+'px';
+  }
+  // If minimized, restore first
+  w.classList.remove('minimized');
+  w.classList.add('open','wop');
+  setTimeout(function(){w.classList.remove('wop');},150);
+  w.style.zIndex=++Z; focused=id; openSet.add(id);
+  if(id==='terminal')setTimeout(function(){document.getElementById('ti').focus();},80);
+  try{if(urlMap[id])history.pushState({win:id},'',urlMap[id]);}catch(e){}
+}
+
+function cw(id){
+  var w=document.getElementById('win-'+id);
+  if(w){w.classList.remove('open','minimized');openSet.delete(id);}
+  if(focused===id)focused=null;
+  try{history.pushState({},'','/');}catch(e){}
+}
+
+// Minimize = roll up to title bar only
+function mw(id){
+  var w=document.getElementById('win-'+id);
+  if(!w||!w.classList.contains('open'))return;
+  w.classList.toggle('minimized');
+}
+
+function xw(id){
+  var w=document.getElementById('win-'+id); if(!w)return;
+  w.classList.remove('minimized');
+  if(w.dataset.mx==='1'){
+    w.style.left=w.dataset.pl;w.style.top=w.dataset.pt;w.style.width=w.dataset.pw;w.style.height=w.dataset.ph;w.dataset.mx='0';
+  }else{
+    w.dataset.pl=w.style.left;w.dataset.pt=w.style.top;w.dataset.pw=w.style.width;w.dataset.ph=w.style.height;
+    w.style.left='0';w.style.top='0';w.style.width='100%';w.style.height='100%';w.dataset.mx='1';
+  }
+}
+
+function ca(){wins.forEach(cw);}
+function xwf(){if(focused)xw(focused);}
+function mwf(){if(focused)mw(focused);}
+function cwf(){if(focused)cw(focused);}
+function centerf(){
+  if(!focused)return;
+  var w=document.getElementById('win-'+focused); if(!w)return;
+  var d=document.getElementById('desk');
+  w.style.left=Math.max(0,(d.offsetWidth-w.offsetWidth)/2)+'px';
+  w.style.top=Math.max(0,(d.offsetHeight-w.offsetHeight)/2)+'px';
+}
+
+wins.forEach(function(id){
+  var w=document.getElementById('win-'+id);
+  if(w)w.addEventListener('mousedown',function(){w.style.zIndex=++Z;focused=id;});
+});
+
+// ── DRAG ──────────────────────────────────────────────────────────
+wins.forEach(function(id){
+  var w=document.getElementById('win-'+id),tb=document.getElementById('tb-'+id);
+  if(!w||!tb)return;
+  var drag=false,sx,sy,sl,st;
+  tb.addEventListener('mousedown',function(e){
+    if(e.target.classList.contains('wb')||e.target.closest('.wbtns')||e.target.closest('.wcount'))return;
+    drag=true;sx=e.clientX;sy=e.clientY;sl=parseInt(w.style.left)||0;st=parseInt(w.style.top)||0;
+    w.style.zIndex=++Z;focused=id;e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){if(!drag)return;w.style.left=Math.max(0,sl+e.clientX-sx)+'px';w.style.top=Math.max(26,st+e.clientY-sy)+'px';});
+  document.addEventListener('mouseup',function(){drag=false;});
+});
+
+// ── RESIZE ────────────────────────────────────────────────────────
+wins.forEach(function(id){
+  var w=document.getElementById('win-'+id);
+  var rz=w&&w.querySelector('.wrz'); if(!rz)return;
+  var drag=false,sx,sy,sw,sh;
+  rz.addEventListener('mousedown',function(e){drag=true;sx=e.clientX;sy=e.clientY;sw=w.offsetWidth;sh=w.offsetHeight;e.preventDefault();e.stopPropagation();});
+  document.addEventListener('mousemove',function(e){if(!drag)return;w.style.width=Math.max(280,sw+e.clientX-sx)+'px';w.style.height=Math.max(160,sh+e.clientY-sy)+'px';});
+  document.addEventListener('mouseup',function(){drag=false;});
+});
+
+// ── DESKTOP ICON SELECT ───────────────────────────────────────────
+function sel(el){document.querySelectorAll('.di').forEach(function(d){d.classList.remove('sel');});el.classList.add('sel');}
+function deskClick(e){
+  if(!e.target.closest('.di')&&!e.target.closest('.win')&&!e.target.closest('#dock')&&!e.target.closest('#mb')){
+    document.querySelectorAll('.di').forEach(function(d){d.classList.remove('sel');});
+    cm();
+  }
+}
+
+// ── MENU BAR ──────────────────────────────────────────────────────
+var openMenu=null;
+function toggleMenu(name){
+  if(openMenu===name){cm();return;}
+  cm(); closeDisplayPanel();
+  var drop=document.getElementById('drop-'+name);
+  var btn=document.querySelector('#mn-'+name+' .mb-btn');
+  if(drop)drop.classList.add('show');
+  if(btn)btn.classList.add('on');
+  openMenu=name;
+}
+function cm(){
+  document.querySelectorAll('.mb-drop').forEach(function(d){d.classList.remove('show');});
+  document.querySelectorAll('.mb-btn').forEach(function(b){b.classList.remove('on');});
+  openMenu=null;
+}
+document.addEventListener('click',function(e){if(!e.target.closest('.mb-menu'))cm();});
+
+// ── DISPLAY PANEL ─────────────────────────────────────────────────
+function toggleDisplayPanel(e){
+  e.stopPropagation();
+  cm();
+  document.getElementById('display-panel').classList.toggle('show');
+}
+function closeDisplayPanel(){document.getElementById('display-panel').classList.remove('show');}
+document.addEventListener('click',function(e){if(!e.target.closest('#theme-ic')&&!e.target.closest('#display-panel'))closeDisplayPanel();});
+
+function applyBrightness(val){
+  document.getElementById('desk').style.filter='brightness('+val+'%)';
+  document.getElementById('bright-val').textContent=val+'%';
+  var pct=(val-30)/(130-30)*100;
+  document.getElementById('brightness-slider').style.setProperty('--pct',pct+'%');
+}
+
+function updateDpSwatches(color){
+  ['orange','green','blue','purple'].forEach(function(c){
+    document.getElementById('dp-'+c).classList.toggle('on',c===color);
+  });
+  // sync settings panel
+  ['orange','green','blue','purple'].forEach(function(c){
+    document.getElementById('col-'+c).classList.toggle('on',c===color);
+  });
+}
+
+// ── KEYBOARD SHORTCUTS ────────────────────────────────────────────
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&e.altKey){
+    switch(e.key.toLowerCase()){
+      case 'a':e.preventDefault();ow('about');break;
+      case 'k':e.preventDefault();ow('contact');break;
+      case 'h':e.preventDefault();ow('guide');break;
+      case 'p':e.preventDefault();ow('projects');break;
+      case 'b':e.preventDefault();ow('blog');break;
+      case 't':e.preventDefault();ow('terminal');break;
+      case 'r':e.preventDefault();location.reload();break;
+      case 'f':e.preventDefault();xwf();break;
+      case 'm':e.preventDefault();mwf();break;
+      case 'w':e.preventDefault();cwf();break;
+      case 'c':e.preventDefault();centerf();break;
+    }
+  }
+  if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();os();}
+  if(e.key==='Escape'){hs();cm();closeDisplayPanel();}
+});
+
+// ── CONTEXT MENU ──────────────────────────────────────────────────
+function showCtx(e){
+  if(e.target.closest('.win')||e.target.closest('#dock')||e.target.closest('#mb'))return;
+  e.preventDefault();
+  var m=document.getElementById('ctx');
+  m.style.left=e.clientX+'px';m.style.top=e.clientY+'px';m.classList.add('sh');
+}
+document.addEventListener('click',function(e){if(!e.target.closest('#ctx'))document.getElementById('ctx').classList.remove('sh');});
+
+// ── SEARCH ────────────────────────────────────────────────────────
+var sitems=[
+  {ic:'👤',lb:'About',sb:'Who is Abdul Aziz',fn:function(){ow('about');}},
+  {ic:'📝',lb:'Blog',sb:'Articles and posts',fn:function(){ow('blog');}},
+  {ic:'✉️',lb:'Contact',sb:'Get in touch',fn:function(){ow('contact');}},
+  {ic:'🗂',lb:'Works',sb:'Portfolio projects',fn:function(){ow('projects');}},
+  {ic:'📋',lb:'Experience',sb:'Work timeline',fn:function(){ow('experience');}},
+  {ic:'⌨️',lb:'Terminal',sb:'Interactive terminal',fn:function(){ow('terminal');}},
+  {ic:'⚙️',lb:'Settings',sb:'Customise the desktop',fn:function(){ow('settings');}},
+  {ic:'❓',lb:'Guide',sb:'How to use this portfolio',fn:function(){ow('guide');}},
+  {ic:'📊',lb:'Site Stats',sb:'Visitor statistics',fn:function(){ow('stats');}},
+];
+function os(){document.getElementById('srch').classList.add('sh');document.getElementById('sinp').value='';document.getElementById('sinp').focus();us('');}
+function hs(){document.getElementById('srch').classList.remove('sh');}
+function us(q){
+  var res=sitems.filter(function(i){return !q||i.lb.toLowerCase().includes(q.toLowerCase())||i.sb.toLowerCase().includes(q.toLowerCase());});
+  document.getElementById('sres').innerHTML=res.map(function(i){var idx=sitems.indexOf(i);return '<div class="sres" onclick="ss('+idx+')"><div class="sri">'+i.ic+'</div><div><div class="srt">'+i.lb+'</div><div class="srs">'+i.sb+'</div></div></div>';}).join('');
+}
+function ss(idx){sitems[idx].fn();hs();}
+function sk(e){if(e.key==='Escape')hs();if(e.key==='Enter'){var f=document.querySelector('.sres');if(f)f.click();}}
+
+// ── TERMINAL ──────────────────────────────────────────────────────
+var tcmds={
+  help:function(){return 'Commands:\n  about      open About\n  blog       open Blog\n  contact    open Contact\n  works      open Works\n  experience open Experience\n  whoami     who is this?\n  skills     list skills\n  clear      clear terminal';},
+  about:function(){ow('about');return 'Opening About...';},
+  blog:function(){ow('blog');return 'Opening Blog...';},
+  contact:function(){ow('contact');return 'Opening Contact...';},
+  works:function(){ow('projects');return 'Opening Works...';},
+  experience:function(){ow('experience');return 'Opening Experience...';},
+  clear:function(){document.getElementById('tout').innerHTML='';return null;},
+  whoami:function(){return 'Abdul Aziz — Full Stack Developer\nEmail: abahziz.ro@gmail.com';},
+  skills:function(){return 'React · Next.js · TypeScript · Node.js\nTailwind CSS · PostgreSQL · Supabase\nShopify · REST APIs · Git · Vercel';}
+};
+function tkey(e){
+  if(e.key!=='Enter')return;
+  var inp=document.getElementById('ti'),cmd=inp.value.trim().toLowerCase();
+  inp.value=''; if(!cmd)return;
+  var out=document.getElementById('tout');
+  var cl=document.createElement('div');cl.className='tcmd';cl.textContent=cmd;out.appendChild(cl);
+  var h=tcmds[cmd];
+  if(h){var r=h();if(r){var rl=document.createElement('div');rl.style.color='var(--text-dim)';rl.style.whiteSpace='pre';rl.textContent=r;out.appendChild(rl);}}
+  else{var el=document.createElement('div');el.style.color='#c0392b';el.textContent='command not found: '+cmd;out.appendChild(el);}
+  document.getElementById('tscroll').scrollTop=99999;
+}
+
+// ── THEME ─────────────────────────────────────────────────────────
+var desktopColors={light:{orange:'#F97316',green:'#16A34A',blue:'#2563EB',purple:'#7C3AED'},dark:{orange:'#170c07',green:'#071708',blue:'#070d17',purple:'#0e0717'}};
+
+function setMode(mode){
+  curTheme=mode;
+  document.documentElement.setAttribute('data-theme',mode);
+  document.getElementById('btn-light').classList.toggle('on',mode==='light');
+  document.getElementById('btn-dark').classList.toggle('on',mode==='dark');
+  var ic=document.getElementById('theme-ic');
+  ic.textContent=mode==='light'?'☀':'☽';
+  var dpBtn=document.getElementById('dp-dark-btn');
+  if(dpBtn)dpBtn.classList.toggle('on',mode==='dark');
+  if(dpBtn)dpBtn.textContent=mode==='dark'?'ON':'OFF';
+  if(window._drawDog)window._drawDog();
+  if(curWp===0)document.getElementById('desk').style.background='';
+  updateWpThumbs();
+}
+
+function setColor(color){
+  curColor=color;
+  document.documentElement.setAttribute('data-color',color);
+  ['orange','green','blue','purple'].forEach(function(c){
+    var b=document.getElementById('col-'+c);if(b)b.classList.toggle('on',c===color);
+  });
+  updateDpSwatches(color);
+  if(curWp===0)document.getElementById('desk').style.background='';
+  updateWpThumbs();
+}
+
+function toggleTheme(){setMode(curTheme==='light'?'dark':'light');}
+function resetSys(){ca();setMode('light');setColor('orange');applyWp(0);}
+
+// ── WALLPAPER ─────────────────────────────────────────────────────
+var wps=[
+  {label:'Dog Illustration',type:'theme'},
+  {label:'Warm Sunset',bg:'linear-gradient(135deg,#8B4513,#D2691E,#CD853F)',type:'css'},
+  {label:'Forest',bg:'linear-gradient(135deg,#1a3a1a,#2d6a2d,#4a8a4a)',type:'css'},
+  {label:'Ocean',bg:'linear-gradient(135deg,#0d2137,#1a4060,#2060a0)',type:'css'},
+  {label:'Desert',bg:'linear-gradient(135deg,#4a2010,#a05030,#c87840)',type:'css'},
+  {label:'Midnight',bg:'linear-gradient(135deg,#0a0a0f,#151525,#202040)',type:'css'},
+];
+function buildWpGrid(){
+  var grid=document.getElementById('wg'); if(!grid)return;
+  grid.innerHTML='';
+  wps.forEach(function(wp,i){
+    var t=document.createElement('div');
+    t.className='wpthumb'+(i===0?' on':'');
+    t.onclick=function(){applyWp(i);};
+    if(wp.type==='theme'){t.style.background=desktopColors[curTheme][curColor]||'#F97316';}
+    else{t.style.background=wp.bg;}
+    var lbl=document.createElement('div');lbl.className='wptlbl';lbl.textContent=wp.label;
+    t.appendChild(lbl); grid.appendChild(t);
+  });
+}
+function applyWp(idx){
+  curWp=idx;
+  var wp=wps[idx],desk=document.getElementById('desk');
+  if(wp.type==='theme'){desk.style.background='';}
+  else{desk.style.background=wp.bg;}
+  updateWpThumbs();
+}
+function updateWpThumbs(){
+  var thumbs=document.querySelectorAll('.wpthumb');
+  thumbs.forEach(function(t,i){
+    t.classList.toggle('on',i===curWp);
+    if(wps[i]&&wps[i].type==='theme'){t.style.background=desktopColors[curTheme][curColor]||'#F97316';}
+  });
+}
+// ── WORKS DATA ────────────────────────────────────────────────────
+var projData={
+  triqai:{name:'Triqai',role:'Solo founder & engineer',dates:'Sept 2025 – Now',type:'Personal',stack:['Cloudflare Workers','Durable Objects','TypeScript','Hono','GoCardless','Next.js','Supabase','Stripe'],origin:'Transaction enrichment started as an internal feature for Rediant — labelling raw bank transactions with merchant names, categories, and logos. I extracted it into a standalone API when I realised other fintech builders needed the same layer.',tasks:['Designed a distributed singleflight pattern using Durable Objects to collapse concurrent enrichment requests for identical transactions','Built multi-tier edge caching (memory → KV → origin) achieving 96% latency reduction on cache-hit paths','Implemented atomic billing with per-request credit deduction inside Durable Object transactions','Wrote a public REST API with Hono on Cloudflare Workers, versioned and rate-limited','Integrated GoCardless and Plaid webhook pipelines to enrich transactions at ingestion time'],refs:['https://triqai.com']},
+  rediant:{name:'Rediant',role:'Solo founder & engineer',dates:'Nov 2024 – Now',type:'Personal',stack:['Next.js','TypeScript','Supabase','GoCardless','Stripe','Tailwind CSS','Vercel','PostgreSQL'],origin:'I built Rediant to scratch my own itch — I couldn\'t find a European personal finance app that felt modern, handled multi-bank connections well, and was honest about privacy. So I built one from scratch.',tasks:['Integrated GoCardless Open Banking API to connect real European bank accounts with OAuth flows','Designed transaction ingestion pipeline handling thousands of transactions per user with dedup and normalisation','Built a subscription billing layer with Stripe, including trial periods and usage metering','Implemented transaction categorisation using rule-based matching and Triqai enrichment API','Shipped a dashboard with spending trends, category breakdowns, and merchant analytics'],refs:['https://rediant.app']},
+  frames:{name:'Through the Frames',role:'Full stack developer',dates:'Sept 2025',type:'Personal',stack:['Next.js','TypeScript','Cloudflare R2','Tailwind CSS','Vercel'],origin:'A minimal photography portfolio built in a weekend to showcase street photography. The constraint was zero JavaScript on the client for the gallery — pure CSS grid and HTML.',tasks:['Built a static-first gallery with Next.js ISR, serving images from Cloudflare R2','Designed a pure CSS masonry grid with no JS layout computation','Implemented blurhash placeholders for instant perceived load','Set up automated image optimisation pipeline with Sharp on upload'],refs:[]},
+  hytura:{name:'Hytura',role:'Frontend Developer',dates:'Jan 2024 – Sept 2024',type:'Personal',stack:['React','TypeScript','Tailwind CSS','Shopify Storefront API','Vercel'],origin:'Hytura is a DTC supplement brand. I built the headless Shopify storefront from scratch, replacing a Liquid theme to gain full control over UX and performance.',tasks:['Built a headless Shopify storefront with React and the Storefront API','Designed a custom cart with optimistic UI updates and persistent server state','Achieved 95+ Lighthouse score through aggressive code splitting and image optimisation','Implemented subscription product flows using Shopify Selling Plans'],refs:[]},
+  knitted:{name:'Knitted',role:'Junior Frontend Engineer',dates:'Jul 2023 – May 2024',type:'Surf & Turf',stack:['React','Next.js','TypeScript','Shopify','REST APIs','Git'],origin:'Knitted was my first professional engineering role. I worked within a small agency team building e-commerce storefronts and internal tooling for apparel clients.',tasks:['Built reusable component libraries for Shopify Liquid themes','Integrated third-party review and loyalty apps via API','Shipped A/B test variants for product page layouts','Collaborated in agile sprints with designers and backend engineers'],refs:[]},
+  byside:{name:'Byside',role:'Junior Frontend Engineer',dates:'Apr 2023 – Mar 2024',type:'Surf & Turf',stack:['React','JavaScript','CSS Modules','REST APIs','Git'],origin:'Byside was a marketplace-style platform. I joined early to build out the frontend while the product was still being defined.',tasks:['Built product listing and filtering UI from Figma designs','Integrated REST APIs for search, filters, and user authentication','Wrote unit tests with React Testing Library','Contributed to design system documentation'],refs:[]}
+};
+
+function openProj(id){
+  var p=projData[id]; if(!p)return;
+  document.getElementById('proj-win-title').textContent=p.name;
+  var tags=p.stack.map(function(t){return '<span class="proj-tag">'+t+'</span>';}).join('');
+  var tasks=p.tasks.map(function(t){return '<div style="font-size:11px;color:var(--text-dim);line-height:1.55;padding:6px 0;border-bottom:1px solid var(--sep)">'+t+'</div>';}).join('');
+  var visitBtn=p.refs.length?'<button class="proj-visit" onclick="window.open(\''+p.refs[0]+'\',\'_blank\')">↗ VISIT</button>':'';
+  var refs=p.refs.length?'<div class="proj-slbl" style="margin-top:14px">REFERENCES</div>'+p.refs.map(function(r){return '<div class="proj-ref-item" onclick="window.open(\''+r+'\',\'_blank\')"><div class="proj-ref-dot"></div><span>'+r+'</span></div>';}).join(''):'';
+  document.getElementById('proj-win-content').innerHTML=
+    '<div class="proj-left">'+
+      '<div class="proj-pname">'+p.name+'</div>'+
+      '<div class="proj-pmeta">'+p.role+' · '+p.dates+'</div>'+
+      '<div class="proj-pmeta" style="margin-bottom:10px">'+p.type+'</div>'+
+      visitBtn+
+      '<div class="proj-origin-h">Origin</div>'+
+      '<div class="proj-origin-p">'+p.origin+'</div>'+
+    '</div>'+
+    '<div class="proj-right">'+
+      '<div class="proj-slbl">TECH STACK</div>'+
+      '<div class="proj-tags" style="margin-bottom:14px">'+tags+'</div>'+
+      '<div class="proj-slbl">TASKS</div>'+
+      '<div>'+tasks+'</div>'+
+      refs+
+    '</div>';
+  ow('proj');
+}
+
+// ── BLOG DATA ─────────────────────────────────────────────────────
+var blogData=[
+  {title:'Building a Transaction Enrichment API on Cloudflare Workers',date:'10 Mar 2026',read:'6 min read',tags:['Cloudflare','Workers','Durable Objects','TypeScript'],body:'<h2>Background</h2><p>Triqai\'s transaction enrichment API runs entirely on Cloudflare Workers. The core challenge was enriching the same transaction ID from multiple concurrent webhook calls without hitting the upstream provider multiple times — a classic singleflight problem at the edge.</p><h2>Distributed Singleflight with Durable Objects</h2><p>Each transaction gets routed to a Durable Object keyed by its ID. The first request triggers the enrichment fetch; all subsequent concurrent requests for the same ID await the same promise inside the Durable Object\'s in-memory state. This collapses N upstream calls into 1.</p><h2>Multi-tier Caching</h2><p>Results flow through three layers: in-memory cache inside the Durable Object (microseconds), Cloudflare KV (milliseconds), and the origin lookup (hundreds of milliseconds). On warm cache paths, p99 latency dropped to under 8ms — a 96% reduction versus origin.</p><h2>Atomic Billing</h2><p>Credit deduction happens inside the same Durable Object transaction as the enrichment response. There\'s no window where a request can succeed without being billed, or be billed without succeeding.</p>'},
+  {title:'Building a Personal Finance App with Open Banking in Europe',date:'04 Feb 2026',read:'6 min read',tags:['GoCardless','Open Banking','Next.js','Supabase'],body:'<h2>The Problem</h2><p>European personal finance apps either feel dated, require manual CSV imports, or are region-locked. I wanted real-time bank connections across the EU with a clean modern UI — so I built Rediant.</p><h2>GoCardless Open Banking</h2><p>GoCardless provides a unified API over PSD2-compliant open banking across 2,000+ European banks. The OAuth consent flow takes users through their bank\'s authentication and returns an access token scoped to account and transaction data.</p><h2>Transaction Pipeline</h2><p>Each connected account syncs transactions on a schedule and on webhook push. Deduplication happens at the database level using composite unique constraints on account ID + transaction ID. All amounts are normalised to a signed integer in the account\'s base currency.</p><h2>Privacy Decisions</h2><p>Transaction data is encrypted at rest using Supabase column-level encryption. No raw bank credentials ever touch our servers — GoCardless handles auth entirely. Users can revoke consent and delete all data in one click.</p>'},
+  {title:'SEO for JavaScript-Heavy Portfolios',date:'20 Jan 2026',read:'6 min read',tags:['SEO','Next.js','Structured Data','Performance'],body:'<h2>The Challenge</h2><p>This portfolio runs as a desktop metaphor — everything is JS-driven windows, dragging, and dynamic state. Classic SPA SEO pitfalls: thin HTML at parse time, no semantic structure, JS-dependent content.</p><h2>Crawlable Semantic HTML</h2><p>Each "window" has a corresponding static HTML section with proper heading hierarchy and aria labels. Crawlers see the full content even before JS executes. The window chrome is purely decorative from a semantic standpoint.</p><h2>Structured Data</h2><p>JSON-LD blocks describe the person, the portfolio works as CreativeWork items, and blog posts as BlogPosting. This feeds rich results in Google Search and surfaces correctly in AI-assisted search engines.</p><h2>llms.txt</h2><p>A machine-readable llms.txt at the root provides a curated summary of the site for LLM-based crawlers, following the emerging convention. It lists key facts, projects, and contact information in a format optimised for language model consumption rather than human reading.</p>'},
+  {title:'Headless Shopify Architecture Tradeoffs',date:'08 Dec 2025',read:'7 min read',tags:['Shopify','Next.js','Headless','Architecture'],body:'<h2>The Setup</h2><p>I\'ve built headless Shopify storefronts with Next.js and the Storefront API, and I\'ve also built 10+ Liquid theme stores at agencies. Here\'s an honest comparison after doing both extensively.</p><h2>When Headless Wins</h2><p>Headless is the right call when you need a custom checkout flow that Shopify\'s native checkout can\'t support, deep integration with a custom CMS, a performance budget that Liquid themes can\'t hit, or a truly unique UX that no existing theme can approximate.</p><h2>When Liquid Wins</h2><p>For most DTC brands, a well-tuned Liquid theme with Dawn as a base delivers faster, cheaper, and more reliably than headless. Shopify\'s checkout is battle-tested. Theme updates are one click. The app ecosystem integrates cleanly. If you\'re spending under $5M/year in GMV, headless is almost certainly premature optimisation.</p><h2>The Real Cost</h2><p>Headless shifts complexity to you: custom cart persistence, checkout session management, inventory sync, discounts API quirks, and every Shopify app that hooks into the theme layer stops working out of the box. The operational overhead is real.</p>'}
+];
+
+function openPost(idx){
+  var p=blogData[idx]; if(!p)return;
+  document.getElementById('post-win-title').textContent=p.title;
+  var tags=p.tags.map(function(t){return '<span class="proj-tag">'+t+'</span>';}).join('');
+  document.getElementById('post-win-body').innerHTML=
+    '<div class="post-hdr">'+
+      '<div class="post-date">'+p.date+'</div>'+
+      '<div class="post-title">'+p.title+'</div>'+
+      '<div class="post-meta">'+p.read+'</div>'+
+      '<div class="proj-tags" style="margin-top:8px">'+tags+'</div>'+
+    '</div>'+
+    '<div class="post-body">'+p.body+'</div>';
+  ow('post');
+}
+
+function buildGantt(){
+  var rows=document.getElementById('gantt-rows'); if(!rows)return;
+  var items=[
+    {name:'Triqai',left:66.7,width:23.3},
+    {name:'Rediant',left:33.3,width:56.7},
+    {name:'Frames',left:66.7,width:3.3},
+    {name:'Hytura',left:0,width:26.7},
+    {name:'Knitted',left:0,width:13.3},
+    {name:'Byside',left:0,width:6.7}
+  ];
+  rows.innerHTML=items.map(function(it,i){
+    var todayLbl=i===0?'<div class="gantt-tl-lbl" style="left:0">Today</div>':'';
+    return '<div class="gantt-row">'+
+      '<div class="gantt-rn">'+it.name+'</div>'+
+      '<div class="gantt-bars">'+
+        '<div class="gantt-vl" style="left:40%"></div>'+
+        '<div class="gantt-vl" style="left:80%"></div>'+
+        '<div class="gantt-tl" style="left:90%">'+todayLbl+'</div>'+
+        '<div class="gantt-bar" style="left:'+it.left+'%;width:'+it.width+'%"></div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+buildWpGrid();
+buildGantt();
+
+// ── URL ROUTING ───────────────────────────────────────────────────
+(function(){
+  var pm={about:'about',settings:'settings',contact:'contact',guide:'guide',works:'projects',blog:'blog',experience:'experience',terminal:'terminal',stats:'stats'};
+  var path=window.location.pathname.replace(/^\//,'');
+  if(pm[path])setTimeout(function(){ow(pm[path]);},400);
+})();
+
+// ── INIT ──────────────────────────────────────────────────────────
+setTimeout(function(){ow('about');},300);
+// Init brightness slider gradient
+document.getElementById('brightness-slider').style.setProperty('--pct','100%');
+</script>
+</body>
+</html>
