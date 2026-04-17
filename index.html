@@ -376,6 +376,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
 .iv-body{background:#111!important;overflow:hidden!important;display:flex!important;align-items:center;justify-content:center;padding:0!important}
 .iv-img{max-width:100%;max-height:100%;object-fit:contain;display:block}
 
+/* ── TEXT VIEWER ─────────────────────────────────────────────────── */
+.tv-body{background:var(--win-bg)!important;padding:20px 22px!important;overflow-y:auto!important}
+.tv-content{font-family:'Courier New',monospace;font-size:13px;color:var(--text);line-height:1.7;white-space:pre-wrap;word-break:break-word}
+
 /* ── RESPONSIVE: TABLET (769–1024px) ────────────────────────────── */
 @media (max-width:1024px){
   #dock{gap:4px;padding:5px 7px}
@@ -789,12 +793,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
     <div class="wbody">
       <div class="pl-desc">Explore selected projects with timelines, stack choices, and delivery outcomes. This view includes company and freelance examples in a horizontal timeline display.</div>
       <div class="pl-shdr">PROJECT LIST</div>
-      <div class="pl-item" onclick="window.open('/works/triqai/','_blank')"><span class="pl-iname">Triqai</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
-      <div class="pl-item" onclick="window.open('/works/rediant/','_blank')"><span class="pl-iname">Rediant</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Nov 2024 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
-      <div class="pl-item" onclick="window.open('/works/frames/','_blank')"><span class="pl-iname">Through the Frames</span><span class="pl-idot">•</span><span class="pl-irole">Full stack developer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Sept 2025</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
-      <div class="pl-item" onclick="window.open('/works/hytura/','_blank')"><span class="pl-iname">Hytura</span><span class="pl-idot">•</span><span class="pl-irole">Frontend Developer</span><span class="pl-idot">•</span><span class="pl-idates">Jan 2024 – Sept 2024</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
-      <div class="pl-item" onclick="window.open('/works/knitted/','_blank')"><span class="pl-iname">Knitted</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Jul 2023 – May 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
-      <div class="pl-item" onclick="window.open('/works/byside/','_blank')"><span class="pl-iname">Byside</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Apr 2023 – Mar 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
+      <div class="pl-item" onclick="openProj('triqai')"><span class="pl-iname">Triqai</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="openProj('rediant')"><span class="pl-iname">Rediant</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Nov 2024 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="openProj('frames')"><span class="pl-iname">Through the Frames</span><span class="pl-idot">•</span><span class="pl-irole">Full stack developer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Sept 2025</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="openProj('hytura')"><span class="pl-iname">Hytura</span><span class="pl-idot">•</span><span class="pl-irole">Frontend Developer</span><span class="pl-idot">•</span><span class="pl-idates">Jan 2024 – Sept 2024</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="openProj('knitted')"><span class="pl-iname">Knitted</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Jul 2023 – May 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
+      <div class="pl-item" onclick="openProj('byside')"><span class="pl-iname">Byside</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Apr 2023 – Mar 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
       <div class="gantt-wrap">
         <div class="gantt-shdr">TIMELINE (FROM 2024)</div>
         <div class="gantt-hdr">
@@ -844,10 +848,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
     <div class="wbody">
       <div class="blhdr"><h2>Blog</h2><p>Browse posts in explorer mode. Click a post to open its article in a new window with metadata, images, and code blocks.</p></div>
       <div class="pl-shdr">POST LIST</div>
-      <div class="bpost2" onclick="window.open('/blog/building-a-transaction-enrichment-api-on-cloudflare-workers/','_blank')"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Transaction Enrichment API on Cloudflare Workers</div></div><div class="bpost2-meta">10 Mar 2026 · 6 min read</div><div class="bpost2-excerpt">How I built Triqai's transaction enrichment API on Cloudflare Workers, using Durable Objects for atomic billing, a distributed singleflight pattern, and multi-tier edge caching to achieve 96% latency reduction.</div></div>
-      <div class="bpost2" onclick="window.open('/blog/building-a-personal-finance-app-with-open-banking-in-europe/','_blank')"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Personal Finance App with Open Banking in Europe</div></div><div class="bpost2-meta">04 Feb 2026 · 6 min read</div><div class="bpost2-excerpt">What it takes to build a personal finance SaaS that connects to European bank accounts. GoCardless for Open Banking, handling thousands of transactions, security and privacy decisions, and how transaction enrichment became its own product.</div></div>
-      <div class="bpost2" onclick="window.open('/blog/seo-for-javascript-heavy-portfolios/','_blank')"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">SEO for JavaScript-Heavy Portfolios</div></div><div class="bpost2-meta">20 Jan 2026 · 6 min read</div><div class="bpost2-excerpt">How I made a heavily interactive desktop-metaphor portfolio SEO-friendly using crawlable semantic HTML, structured data, llms.txt, and careful font loading, without sacrificing the creative UI.</div></div>
-      <div class="bpost2" onclick="window.open('/blog/headless-shopify-architecture-tradeoffs/','_blank')"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Headless Shopify Architecture Tradeoffs</div></div><div class="bpost2-meta">08 Dec 2025 · 7 min read</div><div class="bpost2-excerpt">An honest look at the architecture decisions behind building headless Shopify storefronts with Next.js, versus the 10+ Liquid theme stores I built at agencies. When headless makes sense, and when it really doesn't.</div></div>
+      <div class="bpost2" onclick="openPost(0)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Transaction Enrichment API on Cloudflare Workers</div></div><div class="bpost2-meta">10 Mar 2026 · 6 min read</div><div class="bpost2-excerpt">How I built Triqai's transaction enrichment API on Cloudflare Workers, using Durable Objects for atomic billing, a distributed singleflight pattern, and multi-tier edge caching to achieve 96% latency reduction.</div></div>
+      <div class="bpost2" onclick="openPost(1)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Personal Finance App with Open Banking in Europe</div></div><div class="bpost2-meta">04 Feb 2026 · 6 min read</div><div class="bpost2-excerpt">What it takes to build a personal finance SaaS that connects to European bank accounts. GoCardless for Open Banking, handling thousands of transactions, security and privacy decisions, and how transaction enrichment became its own product.</div></div>
+      <div class="bpost2" onclick="openPost(2)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">SEO for JavaScript-Heavy Portfolios</div></div><div class="bpost2-meta">20 Jan 2026 · 6 min read</div><div class="bpost2-excerpt">How I made a heavily interactive desktop-metaphor portfolio SEO-friendly using crawlable semantic HTML, structured data, llms.txt, and careful font loading, without sacrificing the creative UI.</div></div>
+      <div class="bpost2" onclick="openPost(3)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Headless Shopify Architecture Tradeoffs</div></div><div class="bpost2-meta">08 Dec 2025 · 7 min read</div><div class="bpost2-excerpt">An honest look at the architecture decisions behind building headless Shopify storefronts with Next.js, versus the 10+ Liquid theme stores I built at agencies. When headless makes sense, and when it really doesn't.</div></div>
     </div>
     <div class="wrz"></div>
   </div>
@@ -962,6 +966,22 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
     <div class="wrz"></div>
   </div>
 
+  <!-- TEXT VIEWER -->
+  <div class="win" id="win-textviewer" style="width:480px;height:300px">
+    <div class="wtb" id="tb-textviewer">
+      <div class="wtitle" id="tv-title">file.txt</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('textviewer')">−</button>
+        <button class="wb" onclick="xw('textviewer')">⊡</button>
+        <button class="wb" onclick="cw('textviewer')">×</button>
+      </div>
+    </div>
+    <div class="wbody tv-body">
+      <div id="tv-content" class="tv-content"></div>
+    </div>
+    <div class="wrz"></div>
+  </div>
+
   <!-- SEARCH -->
   <div id="srch" onclick="if(event.target===this)hs()">
     <div class="sbox">
@@ -1035,8 +1055,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
 <script>
 // ── STATE ─────────────────────────────────────────────────────────
 var Z=100, openSet=new Set(), focused=null;
-var wins=['stats','berlin','portugal','france','about','guide','contact','projects','experience','blog','terminal','settings','proj','post','imageviewer'];
-var defpos={stats:{x:140,y:60},berlin:{x:160,y:60},portugal:{x:180,y:70},france:{x:200,y:80},about:{x:120,y:50},guide:{x:160,y:55},contact:{x:180,y:65},projects:{x:200,y:55},experience:{x:155,y:75},blog:{x:220,y:50},terminal:{x:175,y:85},settings:{x:280,y:60},proj:{x:220,y:60},post:{x:240,y:65},imageviewer:{x:180,y:70}};
+var wins=['stats','berlin','portugal','france','about','guide','contact','projects','experience','blog','terminal','settings','proj','post','imageviewer','textviewer'];
+var defpos={stats:{x:140,y:60},berlin:{x:160,y:60},portugal:{x:180,y:70},france:{x:200,y:80},about:{x:120,y:50},guide:{x:160,y:55},contact:{x:180,y:65},projects:{x:200,y:55},experience:{x:155,y:75},blog:{x:220,y:50},terminal:{x:175,y:85},settings:{x:280,y:60},proj:{x:220,y:60},post:{x:240,y:65},imageviewer:{x:180,y:70},textviewer:{x:200,y:80}};
 var curTheme='light', curColor='orange', curWp=0;
 
 // ── CLOCK ─────────────────────────────────────────────────────────
@@ -1431,13 +1451,13 @@ function buildGantt(){
 // type:'text'  → shows document icon, no click action.
 var folderFiles={
   berlin:[
-    {name:'berlin-trip.txt',  type:'text',  content:'Photos from Berlin, December 2025 weekend trip'},
+    {name:'berlin-trip.txt',  type:'text',  content:'Photos from Berlin, December 2025 weekend trip.\n\nThree days in Berlin — Mitte, Prenzlauer Berg, Kreuzberg.\nCold, overcast, perfect light for street photography.'},
     {name:'berlin-1.png',     type:'image', src:'desktop/berlin/berlin-1.png'},
     {name:'berlin-2.png',     type:'image', src:'desktop/berlin/berlin-2.png'},
     {name:'berlin-3.png',     type:'image', src:'desktop/berlin/berlin-3.png'}
   ],
   portugal:[
-    {name:'portugal-trip.txt',   type:'text',  content:'Portugal trip notes'},
+    {name:'portugal-trip.txt',   type:'text',  content:'Portugal trip — Lisbon and Porto, October 2025.\n\nGolden hour light every evening. Tiles everywhere.\nThe Douro valley was worth the detour.'},
     {name:'portugal-2.png',      type:'image', src:'desktop/portugal/portugal-2.png'},
     {name:'portugal-9.png',      type:'image', src:'desktop/portugal/portugal-9.png'},
     {name:'portugal-11.png',     type:'image', src:'desktop/portugal/portugal-11.png'},
@@ -1445,7 +1465,7 @@ var folderFiles={
     {name:'portugal-sunset.png', type:'image', src:'desktop/portugal/portugal-sunset.png'}
   ],
   france:[
-    {name:'provance-notes.txt',    type:'text',  content:'Provance, France — trip notes'},
+    {name:'provance-notes.txt',    type:'text',  content:'Provance, France — summer 2025.\n\nLavender fields, stone villages, brutal afternoon heat.\nShot mostly in the early morning before the tourists arrived.'},
     {name:'provance-1.png',        type:'image', src:'desktop/france/provance-1.png'},
     {name:'provance-2.png',        type:'image', src:'desktop/france/provance-2.png'},
     {name:'provance-4.png',        type:'image', src:'desktop/france/provance-4.png'},
@@ -1470,6 +1490,8 @@ function renderFolder(id){
     var onclick='';
     if(f.type==='image'&&f.src){
       onclick=' onclick="openImageViewer('+JSON.stringify(f.src)+','+JSON.stringify(f.name)+')"';
+    }else if(f.type==='text'&&f.content!=null){
+      onclick=' onclick="openTextViewer('+JSON.stringify(f.name)+','+JSON.stringify(f.content)+')"';
     }
     html+='<div class="fitem"'+onclick+'>'+thumb+'<span class="fitem-name">'+f.name+'</span><span class="fitem-type">'+(f.type==='image'?'Image':'Text')+'</span></div>';
   });
@@ -1484,6 +1506,12 @@ function openImageViewer(src,name){
   document.getElementById('iv-title').textContent=name;
   document.getElementById('iv-img').src=src;
   ow('imageviewer');
+}
+
+function openTextViewer(name,content){
+  document.getElementById('tv-title').textContent=name;
+  document.getElementById('tv-content').textContent=content;
+  ow('textviewer');
 }
 
 buildWpGrid();
