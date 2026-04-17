@@ -372,6 +372,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
 .post-body h2{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;margin-top:14px}
 .post-body code{font-family:'Courier New',monospace;background:var(--win-tb);padding:2px 5px;border-radius:3px;font-size:11px}
 
+/* ── IMAGE VIEWER ────────────────────────────────────────────────── */
+.iv-body{background:#111!important;overflow:hidden!important;display:flex!important;align-items:center;justify-content:center;padding:0!important}
+.iv-img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+
 /* ── RESPONSIVE: TABLET (769–1024px) ────────────────────────────── */
 @media (max-width:1024px){
   #dock{gap:4px;padding:5px 7px}
@@ -642,36 +646,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
   <div class="win" id="win-berlin" style="width:580px;height:460px">
     <div class="wtb" id="tb-berlin">
       <div class="wtitle">berlin</div>
-      <div class="wcount"><span class="dot"></span>4 items</div>
+      <div class="wcount" id="fc-berlin"><span class="dot"></span>4 items</div>
       <div class="wbtns">
         <button class="wb" onclick="mw('berlin')">−</button>
         <button class="wb" onclick="xw('berlin')">⊡</button>
         <button class="wb" onclick="cw('berlin')">×</button>
       </div>
     </div>
-    <div class="wbody">
-      <div class="folder-hdr"><span class="folder-hdr-lbl">Folder Contents</span><span class="folder-hdr-count">4 items</span></div>
-      <div class="fitem">
-        <div class="fitem-thumb"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M5 7h6M5 10h4"/></svg></div>
-        <span class="fitem-name">berlin-trip.txt</span>
-        <span class="fitem-type">Text</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#2c3e50,#4a6741)"></div>
-        <span class="fitem-name">berlin-1.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#1a1a2e,#3d5a80)"></div>
-        <span class="fitem-name">berlin-2.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#333,#555)"></div>
-        <span class="fitem-name">berlin-3.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-    </div>
+    <div class="wbody" id="fb-berlin"></div>
     <div class="wrz"></div>
   </div>
 
@@ -679,46 +661,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
   <div class="win" id="win-portugal" style="width:580px;height:500px">
     <div class="wtb" id="tb-portugal">
       <div class="wtitle">portugal</div>
-      <div class="wcount"><span class="dot"></span>6 items</div>
+      <div class="wcount" id="fc-portugal"><span class="dot"></span>6 items</div>
       <div class="wbtns">
         <button class="wb" onclick="mw('portugal')">−</button>
         <button class="wb" onclick="xw('portugal')">⊡</button>
         <button class="wb" onclick="cw('portugal')">×</button>
       </div>
     </div>
-    <div class="wbody">
-      <div class="folder-hdr"><span class="folder-hdr-lbl">Folder Contents</span><span class="folder-hdr-count">6 items</span></div>
-      <div class="fitem">
-        <div class="fitem-thumb"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M5 7h6M5 10h4"/></svg></div>
-        <span class="fitem-name">portugal-trip.txt</span>
-        <span class="fitem-type">Text</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#c8a96e,#a07040)"></div>
-        <span class="fitem-name">portugal-2.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#4a7a9b,#2c5f7a)"></div>
-        <span class="fitem-name">portugal-9.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#8a7a5a,#6a5a3a)"></div>
-        <span class="fitem-name">portugal-11.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#5a8a4a,#3a6a2a)"></div>
-        <span class="fitem-name">portugal-14.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#e8c870,#c8a040)"></div>
-        <span class="fitem-name">portugal-sunset.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-    </div>
+    <div class="wbody" id="fb-portugal"></div>
     <div class="wrz"></div>
   </div>
 
@@ -726,41 +676,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
   <div class="win" id="win-france" style="width:580px;height:440px">
     <div class="wtb" id="tb-france">
       <div class="wtitle">provance-france</div>
-      <div class="wcount"><span class="dot"></span>5 items</div>
+      <div class="wcount" id="fc-france"><span class="dot"></span>5 items</div>
       <div class="wbtns">
         <button class="wb" onclick="mw('france')">−</button>
         <button class="wb" onclick="xw('france')">⊡</button>
         <button class="wb" onclick="cw('france')">×</button>
       </div>
     </div>
-    <div class="wbody">
-      <div class="folder-hdr"><span class="folder-hdr-lbl">Folder Contents</span><span class="folder-hdr-count">5 items</span></div>
-      <div class="fitem">
-        <div class="fitem-thumb"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M5 7h6M5 10h4"/></svg></div>
-        <span class="fitem-name">provance-notes.txt</span>
-        <span class="fitem-type">Text</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#c8a090,#a07060)"></div>
-        <span class="fitem-name">provance-1.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#7a9060,#5a7040)"></div>
-        <span class="fitem-name">provance-2.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#b08060,#8a6040)"></div>
-        <span class="fitem-name">provance-4.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-      <div class="fitem">
-        <div class="fitem-thumb" style="background:linear-gradient(135deg,#9060a0,#704080)"></div>
-        <span class="fitem-name">provance-lavender.png</span>
-        <span class="fitem-type">Image</span>
-      </div>
-    </div>
+    <div class="wbody" id="fb-france"></div>
     <div class="wrz"></div>
   </div>
 
@@ -866,12 +789,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
     <div class="wbody">
       <div class="pl-desc">Explore selected projects with timelines, stack choices, and delivery outcomes. This view includes company and freelance examples in a horizontal timeline display.</div>
       <div class="pl-shdr">PROJECT LIST</div>
-      <div class="pl-item" onclick="openProj('triqai')"><span class="pl-iname">Triqai</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
-      <div class="pl-item" onclick="openProj('rediant')"><span class="pl-iname">Rediant</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Nov 2024 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
-      <div class="pl-item" onclick="openProj('frames')"><span class="pl-iname">Through the Frames</span><span class="pl-idot">•</span><span class="pl-irole">Full stack developer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Sept 2025</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
-      <div class="pl-item" onclick="openProj('hytura')"><span class="pl-iname">Hytura</span><span class="pl-idot">•</span><span class="pl-irole">Frontend Developer</span><span class="pl-idot">•</span><span class="pl-idates">Jan 2024 – Sept 2024</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
-      <div class="pl-item" onclick="openProj('knitted')"><span class="pl-iname">Knitted</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Jul 2023 – May 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
-      <div class="pl-item" onclick="openProj('byside')"><span class="pl-iname">Byside</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Apr 2023 – Mar 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
+      <div class="pl-item" onclick="window.open('/works/triqai/','_blank')"><span class="pl-iname">Triqai</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="window.open('/works/rediant/','_blank')"><span class="pl-iname">Rediant</span><span class="pl-idot">•</span><span class="pl-irole">Solo founder &amp; engineer</span><span class="pl-idot">•</span><span class="pl-idates">Nov 2024 – Now</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="window.open('/works/frames/','_blank')"><span class="pl-iname">Through the Frames</span><span class="pl-idot">•</span><span class="pl-irole">Full stack developer</span><span class="pl-idot">•</span><span class="pl-idates">Sept 2025 – Sept 2025</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="window.open('/works/hytura/','_blank')"><span class="pl-iname">Hytura</span><span class="pl-idot">•</span><span class="pl-irole">Frontend Developer</span><span class="pl-idot">•</span><span class="pl-idates">Jan 2024 – Sept 2024</span><span class="pl-idot">•</span><span class="pl-itype">Personal</span></div>
+      <div class="pl-item" onclick="window.open('/works/knitted/','_blank')"><span class="pl-iname">Knitted</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Jul 2023 – May 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
+      <div class="pl-item" onclick="window.open('/works/byside/','_blank')"><span class="pl-iname">Byside</span><span class="pl-idot">•</span><span class="pl-irole">Junior Frontend Engineer</span><span class="pl-idot">•</span><span class="pl-idates">Apr 2023 – Mar 2024</span><span class="pl-idot">•</span><span class="pl-itype">Surf&amp;Turf</span></div>
       <div class="gantt-wrap">
         <div class="gantt-shdr">TIMELINE (FROM 2024)</div>
         <div class="gantt-hdr">
@@ -921,10 +844,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
     <div class="wbody">
       <div class="blhdr"><h2>Blog</h2><p>Browse posts in explorer mode. Click a post to open its article in a new window with metadata, images, and code blocks.</p></div>
       <div class="pl-shdr">POST LIST</div>
-      <div class="bpost2" onclick="openPost(0)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Transaction Enrichment API on Cloudflare Workers</div></div><div class="bpost2-meta">10 Mar 2026 · 6 min read</div><div class="bpost2-excerpt">How I built Triqai's transaction enrichment API on Cloudflare Workers, using Durable Objects for atomic billing, a distributed singleflight pattern, and multi-tier edge caching to achieve 96% latency reduction.</div></div>
-      <div class="bpost2" onclick="openPost(1)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Personal Finance App with Open Banking in Europe</div></div><div class="bpost2-meta">04 Feb 2026 · 6 min read</div><div class="bpost2-excerpt">What it takes to build a personal finance SaaS that connects to European bank accounts. GoCardless for Open Banking, handling thousands of transactions, security and privacy decisions, and how transaction enrichment became its own product.</div></div>
-      <div class="bpost2" onclick="openPost(2)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">SEO for JavaScript-Heavy Portfolios</div></div><div class="bpost2-meta">20 Jan 2026 · 6 min read</div><div class="bpost2-excerpt">How I made a heavily interactive desktop-metaphor portfolio SEO-friendly using crawlable semantic HTML, structured data, llms.txt, and careful font loading, without sacrificing the creative UI.</div></div>
-      <div class="bpost2" onclick="openPost(3)"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Headless Shopify Architecture Tradeoffs</div></div><div class="bpost2-meta">08 Dec 2025 · 7 min read</div><div class="bpost2-excerpt">An honest look at the architecture decisions behind building headless Shopify storefronts with Next.js, versus the 10+ Liquid theme stores I built at agencies. When headless makes sense, and when it really doesn't.</div></div>
+      <div class="bpost2" onclick="window.open('/blog/building-a-transaction-enrichment-api-on-cloudflare-workers/','_blank')"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Transaction Enrichment API on Cloudflare Workers</div></div><div class="bpost2-meta">10 Mar 2026 · 6 min read</div><div class="bpost2-excerpt">How I built Triqai's transaction enrichment API on Cloudflare Workers, using Durable Objects for atomic billing, a distributed singleflight pattern, and multi-tier edge caching to achieve 96% latency reduction.</div></div>
+      <div class="bpost2" onclick="window.open('/blog/building-a-personal-finance-app-with-open-banking-in-europe/','_blank')"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Building a Personal Finance App with Open Banking in Europe</div></div><div class="bpost2-meta">04 Feb 2026 · 6 min read</div><div class="bpost2-excerpt">What it takes to build a personal finance SaaS that connects to European bank accounts. GoCardless for Open Banking, handling thousands of transactions, security and privacy decisions, and how transaction enrichment became its own product.</div></div>
+      <div class="bpost2" onclick="window.open('/blog/seo-for-javascript-heavy-portfolios/','_blank')"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">SEO for JavaScript-Heavy Portfolios</div></div><div class="bpost2-meta">20 Jan 2026 · 6 min read</div><div class="bpost2-excerpt">How I made a heavily interactive desktop-metaphor portfolio SEO-friendly using crawlable semantic HTML, structured data, llms.txt, and careful font loading, without sacrificing the creative UI.</div></div>
+      <div class="bpost2" onclick="window.open('/blog/headless-shopify-architecture-tradeoffs/','_blank')"><div class="bpost2-top"><div class="bpost2-ic">□</div><div class="bpost2-name">Headless Shopify Architecture Tradeoffs</div></div><div class="bpost2-meta">08 Dec 2025 · 7 min read</div><div class="bpost2-excerpt">An honest look at the architecture decisions behind building headless Shopify storefronts with Next.js, versus the 10+ Liquid theme stores I built at agencies. When headless makes sense, and when it really doesn't.</div></div>
     </div>
     <div class="wrz"></div>
   </div>
@@ -1023,6 +946,22 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
     <div class="wrz"></div>
   </div>
 
+  <!-- IMAGE VIEWER -->
+  <div class="win" id="win-imageviewer" style="width:720px;height:520px">
+    <div class="wtb" id="tb-imageviewer">
+      <div class="wtitle" id="iv-title">image</div>
+      <div class="wbtns">
+        <button class="wb" onclick="mw('imageviewer')">−</button>
+        <button class="wb" onclick="xw('imageviewer')">⊡</button>
+        <button class="wb" onclick="cw('imageviewer')">×</button>
+      </div>
+    </div>
+    <div class="wbody iv-body">
+      <img id="iv-img" class="iv-img" src="" alt="">
+    </div>
+    <div class="wrz"></div>
+  </div>
+
   <!-- SEARCH -->
   <div id="srch" onclick="if(event.target===this)hs()">
     <div class="sbox">
@@ -1096,8 +1035,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
 <script>
 // ── STATE ─────────────────────────────────────────────────────────
 var Z=100, openSet=new Set(), focused=null;
-var wins=['stats','berlin','portugal','france','about','guide','contact','projects','experience','blog','terminal','settings','proj','post'];
-var defpos={stats:{x:140,y:60},berlin:{x:160,y:60},portugal:{x:180,y:70},france:{x:200,y:80},about:{x:120,y:50},guide:{x:160,y:55},contact:{x:180,y:65},projects:{x:200,y:55},experience:{x:155,y:75},blog:{x:220,y:50},terminal:{x:175,y:85},settings:{x:280,y:60},proj:{x:220,y:60},post:{x:240,y:65}};
+var wins=['stats','berlin','portugal','france','about','guide','contact','projects','experience','blog','terminal','settings','proj','post','imageviewer'];
+var defpos={stats:{x:140,y:60},berlin:{x:160,y:60},portugal:{x:180,y:70},france:{x:200,y:80},about:{x:120,y:50},guide:{x:160,y:55},contact:{x:180,y:65},projects:{x:200,y:55},experience:{x:155,y:75},blog:{x:220,y:50},terminal:{x:175,y:85},settings:{x:280,y:60},proj:{x:220,y:60},post:{x:240,y:65},imageviewer:{x:180,y:70}};
 var curTheme='light', curColor='orange', curWp=0;
 
 // ── CLOCK ─────────────────────────────────────────────────────────
@@ -1486,8 +1425,70 @@ function buildGantt(){
   }).join('');
 }
 
+// ── FOLDER FILES DATA ─────────────────────────────────────────────
+// Edit this object to add, remove, or rename files in each folder.
+// type:'image' → shows real <img> thumbnail and opens image viewer on click.
+// type:'text'  → shows document icon, no click action.
+var folderFiles={
+  berlin:[
+    {name:'berlin-trip.txt',  type:'text',  content:'Photos from Berlin, December 2025 weekend trip'},
+    {name:'berlin-1.png',     type:'image', src:'desktop/berlin/berlin-1.png'},
+    {name:'berlin-2.png',     type:'image', src:'desktop/berlin/berlin-2.png'},
+    {name:'berlin-3.png',     type:'image', src:'desktop/berlin/berlin-3.png'}
+  ],
+  portugal:[
+    {name:'portugal-trip.txt',   type:'text',  content:'Portugal trip notes'},
+    {name:'portugal-2.png',      type:'image', src:'desktop/portugal/portugal-2.png'},
+    {name:'portugal-9.png',      type:'image', src:'desktop/portugal/portugal-9.png'},
+    {name:'portugal-11.png',     type:'image', src:'desktop/portugal/portugal-11.png'},
+    {name:'portugal-14.png',     type:'image', src:'desktop/portugal/portugal-14.png'},
+    {name:'portugal-sunset.png', type:'image', src:'desktop/portugal/portugal-sunset.png'}
+  ],
+  france:[
+    {name:'provance-notes.txt',    type:'text',  content:'Provance, France — trip notes'},
+    {name:'provance-1.png',        type:'image', src:'desktop/france/provance-1.png'},
+    {name:'provance-2.png',        type:'image', src:'desktop/france/provance-2.png'},
+    {name:'provance-4.png',        type:'image', src:'desktop/france/provance-4.png'},
+    {name:'provance-lavender.png', type:'image', src:'desktop/france/provance-lavender.png'}
+  ]
+};
+
+function renderFolder(id){
+  var files=folderFiles[id]; if(!files)return;
+  var n=files.length;
+  var countEl=document.getElementById('fc-'+id);
+  if(countEl)countEl.innerHTML='<span class="dot"></span>'+n+' item'+(n!==1?'s':'');
+  var body=document.getElementById('fb-'+id); if(!body)return;
+  var html='<div class="folder-hdr"><span class="folder-hdr-lbl">Folder Contents</span><span class="folder-hdr-count">'+n+' item'+(n!==1?'s':'')+'</span></div>';
+  files.forEach(function(f,i){
+    var thumb;
+    if(f.type==='image'&&f.src){
+      thumb='<div class="fitem-thumb"><img src="'+f.src+'" style="width:36px;height:28px;object-fit:cover;border-radius:2px" loading="lazy"></div>';
+    }else{
+      thumb='<div class="fitem-thumb"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M5 7h6M5 10h4"/></svg></div>';
+    }
+    var onclick='';
+    if(f.type==='image'&&f.src){
+      onclick=' onclick="openImageViewer('+JSON.stringify(f.src)+','+JSON.stringify(f.name)+')"';
+    }
+    html+='<div class="fitem"'+onclick+'>'+thumb+'<span class="fitem-name">'+f.name+'</span><span class="fitem-type">'+(f.type==='image'?'Image':'Text')+'</span></div>';
+  });
+  body.innerHTML=html;
+}
+
+function renderFolders(){
+  Object.keys(folderFiles).forEach(function(id){renderFolder(id);});
+}
+
+function openImageViewer(src,name){
+  document.getElementById('iv-title').textContent=name;
+  document.getElementById('iv-img').src=src;
+  ow('imageviewer');
+}
+
 buildWpGrid();
 buildGantt();
+renderFolders();
 
 // ── URL ROUTING ───────────────────────────────────────────────────
 (function(){
