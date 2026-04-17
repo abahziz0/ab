@@ -919,7 +919,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
   </div>
 
   <!-- PROJECT DETAIL (dynamic) -->
-  <div class="win" id="win-proj" style="width:780px;height:500px">
+  <div class="win" id="win-proj" style="width:780px;height:620px">
     <div class="wtb" id="tb-proj">
       <div class="wdot"></div>
       <div class="wtitle" id="proj-win-title">Project</div>
@@ -936,7 +936,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--desktop);color
   </div>
 
   <!-- BLOG POST VIEWER (dynamic) -->
-  <div class="win" id="win-post" style="width:580px;height:500px">
+  <div class="win" id="win-post" style="width:580px;height:620px">
     <div class="wtb" id="tb-post">
       <div class="wdot"></div>
       <div class="wtitle" id="post-win-title">Post</div>
@@ -1060,7 +1060,7 @@ var Z=100, openSet=new Set(), focused=null;
 function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
 
 var wins=['stats','berlin','portugal','france','about','guide','contact','projects','experience','blog','terminal','settings','proj','post','imageviewer','textviewer'];
-var defpos={stats:{x:140,y:60},berlin:{x:160,y:60},portugal:{x:180,y:70},france:{x:200,y:80},about:{x:120,y:50},guide:{x:160,y:55},contact:{x:180,y:65},projects:{x:200,y:55},experience:{x:155,y:75},blog:{x:220,y:50},terminal:{x:175,y:85},settings:{x:280,y:60},proj:{x:220,y:60},post:{x:240,y:65},imageviewer:{x:180,y:70},textviewer:{x:200,y:80}};
+var defpos={stats:{x:140,y:60},berlin:{x:160,y:60},portugal:{x:180,y:70},france:{x:200,y:80},about:{x:120,y:50},guide:{x:160,y:55},contact:{x:180,y:65},projects:{x:200,y:55},experience:{x:155,y:75},blog:{x:90,y:80},terminal:{x:175,y:85},settings:{x:280,y:60},proj:{x:730,y:70},post:{x:870,y:70},imageviewer:{x:180,y:70},textviewer:{x:200,y:80}};
 var curTheme='light', curColor='orange', curWp=0;
 
 // ── CLOCK ─────────────────────────────────────────────────────────
@@ -1403,6 +1403,8 @@ function openProj(id){
       refs+
     '</div>';
   ow('proj');
+  var pw=document.getElementById('win-proj');
+  pw.style.width='780px';pw.style.height='620px';pw.style.left='730px';pw.style.top='70px';
   try{history.pushState({win:'proj',id:id},'','/works/'+id+'/');}catch(e){}
 }
 
@@ -1427,6 +1429,8 @@ function openPost(idx){
     '</div>'+
     '<div class="post-body">'+p.body+'</div>';
   ow('post');
+  var pw=document.getElementById('win-post');
+  pw.style.width='580px';pw.style.height='620px';pw.style.left='870px';pw.style.top='70px';
   try{history.pushState({win:'post',idx:idx},'','/blog/'+slugify(blogData[idx].title)+'/');}catch(e){}
 }
 
