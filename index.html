@@ -1529,22 +1529,28 @@ renderFolders();
 
 // ── URL ROUTING ───────────────────────────────────────────────────
 (function(){
-  var pm={about:'about',settings:'settings',contact:'contact',guide:'guide',works:'projects',blog:'blog',experience:'experience',terminal:'terminal',stats:'stats'};
-  var path=window.location.pathname.replace(/^\/|\/$/g,'');
-  if(path.startsWith('blog/')){
-    var slug=path.slice(5);
-    if(slug){
-      var idx=-1;
-      blogData.forEach(function(p,i){if(slugify(p.title)===slug)idx=i;});
-      if(idx>=0)setTimeout(function(){openPost(idx);},400);
-      else setTimeout(function(){ow('blog');},400);
-    }else{setTimeout(function(){ow('blog');},400);}
-  }else if(path.startsWith('works/')){
-    var id=path.slice(6);
-    if(id&&projData[id])setTimeout(function(){openProj(id);},400);
-    else setTimeout(function(){ow('projects');},400);
-  }else if(pm[path]){
-    setTimeout(function(){ow(pm[path]);},400);
+  var params = new URLSearchParams(window.location.search);
+  var redirected = params.get('r');
+  if(redirected) {
+    history.replaceState(null, '', redirected);
+  }
+  var path = (redirected || window.location.pathname).replace(/^\/|\/$/g,'');
+  var parts = path.split('/');
+  var pm = {about:'about',settings:'settings',contact:'contact',guide:'guide',works:'projects',blog:'blog',experience:'experience',terminal:'terminal',stats:'stats'};
+  if(parts[0]==='blog' && parts[1]) {
+    var slug = parts[1];
+    setTimeout(function(){
+      ow('blog');
+      var idx = -1;
+      for(var i=0;i<blogData.length;i++){ if(slugify(blogData[i].title)===slug){idx=i;break;} }
+      if(idx>=0) setTimeout(function(){ openPost(idx); }, 200);
+    }, 400);
+  } else if(parts[0]==='works' && parts[1]) {
+    setTimeout(function(){ openProj(parts[1]); }, 400);
+  } else if(pm[parts[0]]) {
+    setTimeout(function(){ ow(pm[parts[0]]); }, 400);
+  } else {
+    setTimeout(function(){ ow('about'); }, 300);
   }
 })();
 
